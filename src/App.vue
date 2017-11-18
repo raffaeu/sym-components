@@ -22,6 +22,17 @@
       :collapsible="true">
     </sym-data-table>
 
+    <!-- Table with totals -->
+    <h3>Simple Table with totals</h3>
+    <sym-data-table 
+      title="Table collapsible"
+      :hasFooter="true"
+      :items="items_01" 
+      :isCard="true" 
+      :columns="columns_01" 
+      @selectedRowsChanged="changed">
+    </sym-data-table>
+
   </div>
 </template>
 
@@ -58,13 +69,13 @@ export default {
         id: 1, 
         invoiceNr: '1234-ABC', 
         description: 'Dell tower 123 i7 SSD', 
-        total: '1.250,00'
+        total: 1250
       },
       {
         id: 2, 
         invoiceNr: '234-YXZ', 
         description: 'Dell Monitor led 32" wide', 
-        total: '750,00'
+        total: 750
       }
     ]
 
@@ -85,7 +96,8 @@ export default {
         name: 'total',
         type: 'currency',
         label: 'Total Amount',
-        width: 150
+        width: 150,
+        hasTotal: true
       }      
       
     ]

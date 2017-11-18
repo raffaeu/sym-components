@@ -41,13 +41,32 @@
             :key="colIndex" 
             :class="`head-${col.type}`"
             :width="isNaN(col.width) ? 'auto' : col.width">
-            {{ col.label}}
+            {{ col.label }}
           </th>
 
           <th class="end"></th>
 
         </tr>
       </thead>
+
+      <!-- optional footer MUST be before data for XHTML validation -->      
+      <tfoot v-if="hasFooter">
+        <tr class="footer">
+
+          <!-- footer label -->
+          <th class="footer-label" colspan="2">{{ footerLabel }}</th>
+
+          <!-- totals, except first column -->
+          <th 
+            v-for="(col, colIndex) in totals" 
+            :key="colIndex" 
+            :class="`head-${col.type}`"
+            :width="isNaN(col.width) ? 'auto' : col.width">
+            {{ formatValue(col.value, col.type) }}
+          </th>
+
+        </tr>
+      </tfoot>
 
       <!-- data content -->
       <tbody>
@@ -66,20 +85,13 @@
           v-for="(col, colIndex) in columns" 
           :key="colIndex" 
           :class="`col-${col.type}`">
-            {{ item[col.name] }}
+            {{ formatValue(item[col.name], col.type) }}
           </td>
 
           <td class="end"></td>
 
         </tr>
       </tbody>
-
-      <!-- optional footer -->      
-      <tfoot v-if="hasFooter">
-        <tr>
-
-        </tr>
-      </tfoot>
 
     </table>
     <!-- END data table -->
@@ -95,48 +107,48 @@
 export default {
   name: 'sym-data-table',
 
-  methods: {
-
-    /**
-      * Triggered when a TR is selected/unselected
-      * bound to a single click/tap event
-     */
-    toggleRow: function (item) {
-      /* get the selected row */
-      let index = this.selectedRows.indexOf(item)
-
-      /* if it's selected, unselected or vice-versa */
-      if (index > -1) {
-        this.selectedRows.splice(index, 1)
-      } else {
-        this.selectedRows.push(item)
-      }
-
-      /* notify */
-      this.$emit('selectedRowsChanged', this.selectedRows)
-     },
-
-    /**
-      * switch between collapsed mode
-     */
-    toggleCollapse: function () {
-      this.collapsed = !this.collapsed
-    }
-
-  },
-
   data () {
     return {
+
       /* placeholder for selected rows */
       selectedRows: [],
+
       /* placeholder for collapsed state */
       collapsed: false
     }
   },
 
+  computed: {
+    /* columns totals can be calculated here */
+    totals: function () {
+      console.log('calculating')
+      if (this.hasFooter) {
+        var totalsRow = []
+        for (var i = 0; i < this.columns.length - 1; i++) {
+          if (this.columns[i + 1].hasTotal) {
+            totalsRow.push({
+              hasTotal: this.columns[i + 1].hasTotal,
+              width: this.columns[i + 1].width,
+              type: this.columns[i + 1].type,
+              value: this.sumRowsByColumn(this.columns[i + 1].name)
+            })
+          } else {
+            totalsRow.push({
+              hasTotal: false,
+              width: this.columns[i + 1].width,
+              type: this.columns[i + 1].type
+            })
+          }
+        }
+        console.log('total rows calculated')
+        return totalsRow
+      }
+    }
+  },
+
   props: {
     
-    /* */
+    /* the title of the table */
     title: {
       type: String,
       required: true,
@@ -164,6 +176,13 @@ export default {
       default: false
     },
 
+    /* when set, provides a custom label for the totals */
+    footerLabel: {
+      type: String,
+      required: false,
+      default: 'Totals'
+    },    
+
     /* the items data-bound to the data table */
     items: {
       type: Array,
@@ -178,7 +197,57 @@ export default {
       default: () => []
     }
 
-  }
+  },
+
+  methods: {
+
+    /**
+      * Triggered when a TR is selected/unselected
+      * bound to a single click/tap event
+    */
+    toggleRow: function (item) {
+      /* get the selected row */
+      let index = this.selectedRows.indexOf(item)
+
+      /* if it's selected, unselected or vice-versa */
+      if (index > -1) {
+        this.selectedRows.splice(index, 1)
+      } else {
+        this.selectedRows.push(item)
+      }
+
+      /* notify */
+      this.$emit('selectedRowsChanged', this.selectedRows)
+    },
+
+    /**
+      * switch between collapsed mode
+     */
+    toggleCollapse: function () {
+      this.collapsed = !this.collapsed
+    },
+
+    /**
+      * sum all values of a specified column
+     */
+    sumRowsByColumn: function (column) {
+      var sum = 0
+      for (var i = 0; i < this.items.length; i++) {
+        sum = sum + this.items[i][column]
+      }
+      return sum
+    },
+
+    /**
+      * format a value base on type
+     */
+    formatValue: function (val, type) {
+      if (type === 'currency') {
+        return `${val.toFixed(2)} $`
+      }
+      return val
+    } 
+  }    
 }
 </script>
 
@@ -281,4 +350,18 @@ export default {
     text-align: right;
   }
 
+  .footer, 
+  .footer > th {
+    font-size: 14px;
+    font-weight: 600 !important;
+    color: rgba(0, 0, 0, 0.83);
+    height: 36px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);    
+
+  }
+
+  .footer-label {
+    text-align: left;
+    padding-left: 14px;
+  }
 </style>

@@ -6,13 +6,7 @@ A collection of Vue.js components implementing the Material Design specification
 
 Here is the current list of available components.
 
-### Data Table (sym-data-table)
-
-How to install the component:
-
-```bash
-npm install --save sym-data-table
-```
+- sym-data-table [documentation](/docs/SymDataTable.md)
 
 ## Build Setup
 
