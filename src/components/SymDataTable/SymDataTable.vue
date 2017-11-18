@@ -1,18 +1,41 @@
 <template>
 
+  <!-- main container -->
   <div class="sym-table" :class="{ card: isCard }">
 
+    <!-- table header -->
     <div class="sym-table-header">
-      <div class="sym-table-header-content">My Table Header</div>
-      <div class="sym-table-icons">
-        <slot name="table-commands"></slot>
-      </div>
-    </div>
 
-    <table class="unselectable">
+      <!-- Title -->
+      <div class="sym-table-header-content">{{ title }}</div>
+      
+      <!-- Optional commands -->
+      <div class="sym-table-icons">
+
+        <!-- actions -->
+        <slot name="table-commands"></slot>
+
+        <!-- collapsible -->
+        <div v-if="collapsible">
+          <input type="button" @click="toggleCollapse" value="X" />
+        </div>
+
+      </div>
+
+    </div>
+    <!-- END table header -->
+
+    <!-- data table -->
+    <table class="unselectable" v-if="!collapsed">
+
+      <!-- header -->
       <thead>
         <tr>
+
+          <!-- selection -->
           <th class="begin"></th>
+
+          <!-- headers definition -->
           <th 
             v-for="(col, colIndex) in columns" 
             :key="colIndex" 
@@ -20,69 +43,135 @@
             :width="isNaN(col.width) ? 'auto' : col.width">
             {{ col.label}}
           </th>
+
           <th class="end"></th>
+
         </tr>
       </thead>
+
+      <!-- data content -->
       <tbody>
         <tr 
           @click="toggleRow(item)" 
           v-for="(item, index) in items" :key="index" 
           :class="{ selected: selectedRows.indexOf(item) > -1 }">
-            <td class="begin" 
-            :class="{ 'begin-selected': selectedRows.indexOf(item) > -1 }"></td>
-            <td 
-            v-for="(col, colIndex) in columns" 
-            :key="colIndex" 
-            :class="`col-${col.type}`">
-              {{ item[col.name] }}
-            </td>
-            <td class="end"></td>
+
+          <!-- selection -->
+          <td class="begin" 
+          :class="{ 'begin-selected': selectedRows.indexOf(item) > -1 }"></td>
+
+
+          <!-- rows with column definition -->
+          <td 
+          v-for="(col, colIndex) in columns" 
+          :key="colIndex" 
+          :class="`col-${col.type}`">
+            {{ item[col.name] }}
+          </td>
+
+          <td class="end"></td>
+
         </tr>
       </tbody>
+
+      <!-- optional footer -->      
+      <tfoot v-if="hasFooter">
+        <tr>
+
+        </tr>
+      </tfoot>
+
     </table>
+    <!-- END data table -->
 
   </div>
 
 </template>
 <script>
 /**
+ * SymDataTable (usage sym-data-table)
  * A Data Table component using Material Design
  */
 export default {
   name: 'sym-data-table',
 
   methods: {
+
+    /**
+      * Triggered when a TR is selected/unselected
+      * bound to a single click/tap event
+     */
     toggleRow: function (item) {
+      /* get the selected row */
       let index = this.selectedRows.indexOf(item)
+
+      /* if it's selected, unselected or vice-versa */
       if (index > -1) {
         this.selectedRows.splice(index, 1)
       } else {
         this.selectedRows.push(item)
       }
+
+      /* notify */
       this.$emit('selectedRowsChanged', this.selectedRows)
-     }
+     },
+
+    /**
+      * switch between collapsed mode
+     */
+    toggleCollapse: function () {
+      this.collapsed = !this.collapsed
+    }
+
   },
 
   data () {
     return {
-      selectedRows: []
+      /* placeholder for selected rows */
+      selectedRows: [],
+      /* placeholder for collapsed state */
+      collapsed: false
     }
   },
 
   props: {
+    
+    /* */
+    title: {
+      type: String,
+      required: true,
+      default: 'sym-data-table'
+    },
 
+    /* when true, provide a card with shadow and 16px padding */
     isCard: {
       type: Boolean,
       required: false,
       default: false
     },
 
+    /* when true, display a collapse icon and make the table collapsible */
+    collapsible: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+
+    /* when true, display a footer */
+    hasFooter: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+
+    /* the items data-bound to the data table */
     items: {
       type: Array,
       required: true,
       default: () => []
     },
 
+    /* the columns configuration */
     columns: {
       type: Array,
       required: false,

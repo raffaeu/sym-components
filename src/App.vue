@@ -1,8 +1,27 @@
 <template>
   <div id="app">
-    <sym-data-table :items="testItems" :isCard="true" :columns="testColumns" @selectedRowsChanged="changed">
-      <div slot="table-commands"></div>
+
+    <!-- Table with static array -->
+    <h3>Simple Table with static Array</h3>
+    <sym-data-table 
+      title="Table with static array"
+      :items="items_01" 
+      :isCard="true" 
+      :columns="columns_01" 
+      @selectedRowsChanged="changed">
     </sym-data-table>
+
+    <!-- Table with static array, collapsible -->
+    <h3>Simple Table with static Array, collapsible</h3>
+    <sym-data-table 
+      title="Table collapsible"
+      :items="items_01" 
+      :isCard="true" 
+      :columns="columns_01" 
+      @selectedRowsChanged="changed"
+      :collapsible="true">
+    </sym-data-table>
+
   </div>
 </template>
 
@@ -18,10 +37,10 @@ export default {
 
   data () {
     return {
-      testItems: [
+      items_01: [
 
       ],
-      testColumns: [
+      columns_01: [
 
       ] 
     }
@@ -34,28 +53,34 @@ export default {
   },
 
   created () {    
-    this.testItems = [
+    this.items_01 = [
       {
-        id: 1, description: 'Some long text description', code: 'ABC 123', total: '1234567890'
+        id: 1, 
+        invoiceNr: '1234-ABC', 
+        description: 'Dell tower 123 i7 SSD', 
+        total: '1.250,00'
       },
       {
-        id: 2, description: 'Some long text description', code: 'ABC 123', total: '1234567890'
+        id: 2, 
+        invoiceNr: '234-YXZ', 
+        description: 'Dell Monitor led 32" wide', 
+        total: '750,00'
       }
     ]
 
-    this.testColumns = [
+    this.columns_01 = [
+      {
+        name: 'invoiceNr',
+        type: 'string',
+        label: 'Invoice #',
+        width: 80
+      },      
       {
         name: 'description',
         type: 'string',
         label: 'Description',
         width: 'flex'
       },
-      {
-        name: 'code',
-        type: 'string',
-        label: 'Code',
-        width: 150
-      },      
       {
         name: 'total',
         type: 'currency',
@@ -69,4 +94,9 @@ export default {
 </script>
 
 <style>
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+
+  body {
+    font-family: 'Roboto', sans-serif;
+  }
 </style>

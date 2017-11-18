@@ -1,8 +1,22 @@
-# sym-components
+# Welcome to sym-components
 
-> A collection of Vue.js components
+A collection of Vue.js components implementing the Material Design specifications.
+
+## Components
+
+Here is the current list of available components.
+
+### Data Table (sym-data-table)
+
+How to install the component:
+
+```bash
+npm install --save sym-data-table
+```
 
 ## Build Setup
+
+### Build the project
 
 ``` bash
 # install dependencies
@@ -16,7 +30,11 @@ npm run build
 
 # build for production and view the bundle analyzer report
 npm run build --report
+```
 
+### Test
+
+```bash
 # run unit tests
 npm run unit
 
@@ -26,5 +44,3 @@ npm run e2e
 # run all tests
 npm test
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
