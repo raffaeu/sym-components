@@ -6,7 +6,7 @@
 
 The `sym-data-table` is using Material Design guidelines with a slightly change related to selection of rows, which can be customized with CSS.
 
-![Data Table Layout](images/sym-data-table-01.png)
+![Data Table Layout](images/sym-data-table-01.PNG)
 
 ## Usage
 
