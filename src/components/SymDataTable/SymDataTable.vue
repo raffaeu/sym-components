@@ -121,10 +121,11 @@ export default {
   computed: {
     /* columns totals can be calculated here */
     totals: function () {
-      console.log('calculating')
+      /* without footer visible, no need to calculate totals */
       if (this.hasFooter) {
         var totalsRow = []
         for (var i = 0; i < this.columns.length - 1; i++) {
+          /* if the column has total, calculate */
           if (this.columns[i + 1].hasTotal) {
             totalsRow.push({
               hasTotal: this.columns[i + 1].hasTotal,
@@ -132,6 +133,7 @@ export default {
               type: this.columns[i + 1].type,
               value: this.sumRowsByColumn(this.columns[i + 1].name)
             })
+          /* otherwise create an empty row to preserve XHTML validation */  
           } else {
             totalsRow.push({
               hasTotal: false,
@@ -140,7 +142,6 @@ export default {
             })
           }
         }
-        console.log('total rows calculated')
         return totalsRow
       }
     }
@@ -153,6 +154,13 @@ export default {
       type: String,
       required: true,
       default: 'sym-data-table'
+    },
+
+    /* when true, multiple rows can be selected */
+    multiSelect: {
+      type: Boolean,
+      required: false,
+      default: false
     },
 
     /* when true, provide a card with shadow and 16px padding */
@@ -211,8 +219,11 @@ export default {
 
       /* if it's selected, unselected or vice-versa */
       if (index > -1) {
-        this.selectedRows.splice(index, 1)
+          this.selectedRows.splice(index, 1)
       } else {
+        if (!this.multiSelect) {
+          this.selectedRows.splice(0, this.selectedRows.length)
+        }
         this.selectedRows.push(item)
       }
 

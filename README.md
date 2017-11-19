@@ -10,6 +10,8 @@ Here is the current list of available components.
 
 ## Build Setup
 
+The following configurations can be used for development and publishing of the component library.
+
 ### Build the project
 
 ``` bash
@@ -38,3 +40,18 @@ npm run e2e
 # run all tests
 npm test
 ```
+
+### Node Publish
+
+```bash
+# create a new npm user if needed
+npm adduser
+
+# login to npm
+npm login
+
+# publish
+npm publish
+```
+
+> Use the `.npmignore` file to ignore all files that are not needed for the deployment version. 

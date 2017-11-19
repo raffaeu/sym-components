@@ -11,6 +11,17 @@
       @selectedRowsChanged="changed">
     </sym-data-table>
 
+    <!-- Table with static array -->
+    <h3>Simple Table with static Array, multi-select</h3>
+    <sym-data-table 
+      title="Table with static array, multi-select"
+      :multi-select="true"
+      :items="items_01" 
+      :isCard="true" 
+      :columns="columns_01" 
+      @selectedRowsChanged="changed">
+    </sym-data-table>
+
     <!-- Table with static array, collapsible -->
     <h3>Simple Table with static Array, collapsible</h3>
     <sym-data-table 
