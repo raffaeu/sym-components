@@ -1,6 +1,6 @@
 {
   "name": "sym-components",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A collection of Vue.js components",
   "author": "Raffaele Garofalo <raffaele.garofalo@symbioticsgroup.com>",
   "private": false,
