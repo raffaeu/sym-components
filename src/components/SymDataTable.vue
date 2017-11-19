@@ -28,7 +28,7 @@
     <!-- END table header -->
 
     <!-- data table -->
-    <table class="unselectable" v-if="!collapsed">
+    <table class="unselectable" v-if="!isCollapsed">
 
       <!-- header -->
       <thead>
@@ -116,11 +116,15 @@ export default {
       selectedRows: [],
 
       /* placeholder for collapsed state */
-      collapsed: false,
+      isCollapsed: false,
 
       /* the icon to be displayed while collapsed or expanded */
       collapseIcon: 'expand_less'
     }
+  },
+
+  mounted () {
+    this.isCollapsed = this.collapsed
   },
 
   computed: {
@@ -177,6 +181,13 @@ export default {
 
     /* when true, display a collapse icon and make the table collapsible */
     collapsible: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+
+    /* when true, the table is hidden by default */
+    collapsed: {
       type: Boolean,
       required: false,
       default: false
@@ -240,8 +251,8 @@ export default {
       * switch between collapsed mode
      */
     toggleCollapse: function () {
-      this.collapsed = !this.collapsed
-      this.collapseIcon = this.collapsed ? 'expand_more' : 'expand_less'
+      this.isCollapsed = !this.isCollapsed
+      this.collapseIcon = this.isCollapsed ? 'expand_more' : 'expand_less'
     },
 
     /**
