@@ -6,7 +6,7 @@ A collection of Vue.js components implementing the Material Design specification
 
 Here is the current list of available components.
 
-- sym-data-table [documentation](/docs/SymDataTable.md)
+- sym-data-table [documentation](docs/SymDataTable.md)
 
 ## Build Setup
 
