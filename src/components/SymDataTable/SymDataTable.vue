@@ -343,6 +343,10 @@ export default {
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);    
   }
 
+  .sym-table > table > tbody > tr:hover td:first-child {
+    border-left: 3px solid #FFA300;
+  }
+
   .sym-table-icons {
     float: right;
     padding-right: 16px;

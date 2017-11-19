@@ -87,6 +87,24 @@ export default {
         invoiceNr: '234-YXZ', 
         description: 'Dell Monitor led 32" wide', 
         total: 750
+      },
+      {
+        id: 3, 
+        invoiceNr: '234-ABC', 
+        description: 'Dell XPS 13" 256GB', 
+        total: 2350
+      },
+      {
+        id: 4, 
+        invoiceNr: '12345-ABC', 
+        description: 'Dell IntelliMouse laser line bluetooth', 
+        total: 120
+      },
+      {
+        id: 5, 
+        invoiceNr: '1-ABC', 
+        description: 'Dell keyboard wireless EN-US blue blacklight', 
+        total: 145
       }
     ]
 
