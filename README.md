@@ -4,6 +4,12 @@ A collection of Vue.js components implementing the Material Design specification
 
 ## Components
 
+You can install the components using `NPM` as following:
+
+```bash
+npm install --save sym-components
+```
+
 Here is the current list of available components.
 
 - sym-data-table [documentation](docs/SymDataTable.md)

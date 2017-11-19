@@ -1,12 +1,12 @@
 # SymDataTable
 
-> A Data Table component according to material. design
+> A Data Table component according to Material Design.
 
 ## Design Guidelines
 
 The `sym-data-table` is using Material Design guidelines with a slightly change related to selection of rows, which can be customized with CSS.
 
-
+![Data Table Layout](images/sym-data-table-01.png)
 
 ## Usage
 
