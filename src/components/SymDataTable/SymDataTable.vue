@@ -17,7 +17,9 @@
 
         <!-- collapsible -->
         <div v-if="collapsible">
-          <input type="button" @click="toggleCollapse" value="X" />
+          <button class="sym-icon-button" @click="toggleCollapse">
+            <i class="material-icons md-24">{{ collapseIcon }}</i>
+          </button>
         </div>
 
       </div>
@@ -114,7 +116,10 @@ export default {
       selectedRows: [],
 
       /* placeholder for collapsed state */
-      collapsed: false
+      collapsed: false,
+
+      /* the icon to be displayed while collapsed or expanded */
+      collapseIcon: 'expand_less'
     }
   },
 
@@ -236,6 +241,7 @@ export default {
      */
     toggleCollapse: function () {
       this.collapsed = !this.collapsed
+      this.collapseIcon = this.collapsed ? 'expand_more' : 'expand_less'
     },
 
     /**
@@ -265,6 +271,18 @@ export default {
 <style lang="css" scoped>
 
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+  @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+  /* Rules for sizing the icon. */
+  .material-icons.md-18 { font-size: 18px; }
+  .material-icons.md-24 { font-size: 24px; }
+  .material-icons.md-36 { font-size: 36px; }
+  .material-icons.md-48 { font-size: 48px; }
+
+  .sym-icon-button {
+    border: 0;
+    background: transparent;
+  }
 
   .unselectable {
     -webkit-touch-callout: none;
@@ -327,6 +345,11 @@ export default {
 
   .sym-table-icons {
     float: right;
+    padding-right: 16px;
+    display: flex; 
+    flex-flow: column; 
+    height: 100%; 
+    justify-content: space-around;
   }
 
   .card {
