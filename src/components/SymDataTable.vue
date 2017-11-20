@@ -147,7 +147,8 @@ export default {
             totalsRow.push({
               hasTotal: false,
               width: this.columns[i + 1].width,
-              type: this.columns[i + 1].type
+              type: this.columns[i + 1].type,
+              value: ''
             })
           }
         }
@@ -261,7 +262,7 @@ export default {
     sumRowsByColumn: function (column) {
       var sum = 0
       for (var i = 0; i < this.items.length; i++) {
-        sum = sum + this.items[i][column]
+        sum += parseFloat(this.items[i][column])
       }
       return sum
     },
@@ -281,8 +282,8 @@ export default {
       }
 
       /* if col is currency */
-      if (type === 'currency') {
-        return `${val.toFixed(2)} $`
+      if (col.type === 'currency') {
+        return `${parseFloat(val).toFixed(2)}`
       }
       return val
     } 
@@ -365,6 +366,16 @@ export default {
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);    
   }
 
+  .sym-table > table > tbody > tr > td,
+  .sym-table > table > tfoot > tr > th,  
+  .sym-table > table > thead > tr > th {
+      padding: 0 8px 0 0;
+  }
+
+  .sym-table > table > tfoot > tr > th:first-child {
+      padding: 0 0 0 16px;
+  }
+
   .sym-table > table > tbody > tr:hover td:first-child {
     border-left: 3px solid #FFA300;
   }
@@ -416,8 +427,6 @@ export default {
     font-weight: 600 !important;
     color: rgba(0, 0, 0, 0.83);
     height: 36px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);    
-
   }
 
   .footer-label {
