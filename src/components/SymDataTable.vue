@@ -64,7 +64,7 @@
             :key="colIndex" 
             :class="`head-${col.type}`"
             :width="isNaN(col.width) ? 'auto' : col.width">
-            {{ formatValue(col.value, col.type) }}
+            {{ formatValue(col.value, col) }}
           </th>
 
         </tr>
@@ -87,7 +87,7 @@
           v-for="(col, colIndex) in columns" 
           :key="colIndex" 
           :class="`col-${col.type}`">
-            {{ formatValue(item[col.name], col.type) }}
+            {{ formatValue(item[col.name], col.type, item) }}
           </td>
 
           <td class="end"></td>
@@ -269,7 +269,18 @@ export default {
     /**
       * format a value base on type
      */
-    formatValue: function (val, type) {
+    formatValue: function (val, col, item) {
+      /* use custom format if defined */
+      if (col.format) {
+        return col.format(val, item)
+      }
+
+      /* safe type check */
+      if (val === null) {
+        return null
+      }
+
+      /* if col is currency */
       if (type === 'currency') {
         return `${val.toFixed(2)} $`
       }

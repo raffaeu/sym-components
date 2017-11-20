@@ -7,7 +7,6 @@
   "typings": "typings/index.d.ts",
   "directories": {
     "doc": "docs"
-
   },
   "scripts": {
     "start": "webpack-dev-server --config docs/webpack.config.js",
@@ -63,5 +62,5 @@
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
       ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
     }
-  }  
+  }
 }
