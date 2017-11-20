@@ -18,7 +18,7 @@
         <!-- collapsible -->
         <div v-if="collapsible">
           <button class="sym-icon-button" @click="toggleCollapse">
-            <i class="material-icons md-24">{{ collapseIcon }}</i>
+            <i class="material-icons md-24" :class="`icon-${isCollapsed ? 'down' : 'up'}`">expand_less</i>
           </button>
         </div>
 
@@ -116,10 +116,7 @@ export default {
       selectedRows: [],
 
       /* placeholder for collapsed state */
-      isCollapsed: false,
-
-      /* the icon to be displayed while collapsed or expanded */
-      collapseIcon: 'expand_less'
+      isCollapsed: false
     }
   },
 
@@ -253,7 +250,6 @@ export default {
      */
     toggleCollapse: function () {
       this.isCollapsed = !this.isCollapsed
-      this.collapseIcon = this.isCollapsed ? 'expand_more' : 'expand_less'
     },
 
     /**
@@ -305,6 +301,10 @@ export default {
   .sym-icon-button {
     border: 0;
     background: transparent;
+  }
+
+  .sym-icon-button:focus {
+    outline: 0;
   }
 
   .unselectable {
@@ -432,5 +432,15 @@ export default {
   .footer-label {
     text-align: left;
     padding-left: 14px;
+  }
+
+  .icon-down {
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .icon-up {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease-in-out;
   }
 </style>
