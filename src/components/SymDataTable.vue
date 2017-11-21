@@ -13,13 +13,22 @@
       <div class="sym-table-icons">
 
         <!-- actions -->
-        <slot name="table-commands"></slot>
+        <div name="table-commands">
 
-        <!-- collapsible -->
-        <div v-if="collapsible">
-          <button class="sym-icon-button ripple" @click="toggleCollapse">
+          <button v-for="(act, actIndex) in actions"
+              :disabled="act.disabled" 
+              :key="actIndex" 
+              class="sym-icon-button"
+              :class="{ 'ripple': !act.disabled }"
+              @click="actionTriggered(act)">
+            <i class="material-icons md-24">{{ act.icon }}</i>
+          </button>
+
+          <!-- collapsible -->
+          <button v-if="collapsible" class="sym-icon-button sym-icon-button-primary ripple" @click="toggleCollapse">
             <i class="material-icons md-24" :class="`icon-${isCollapsed ? 'down' : 'up'}`">expand_less</i>
           </button>
+
         </div>
 
       </div>
@@ -66,7 +75,7 @@
               :key="colIndex" 
               :class="`head-${col.type}`"
               :width="isNaN(col.width) ? 'auto' : col.width">
-              {{ formatValue(col.value, col) }}
+              {{ formatValue(col.value, col, col) }}
             </th>
 
           </tr>
@@ -141,6 +150,7 @@ export default {
               hasTotal: this.columns[i + 1].hasTotal,
               width: this.columns[i + 1].width,
               type: this.columns[i + 1].type,
+              format: this.columns[i + 1].format,
               value: this.sumRowsByColumn(this.columns[i + 1].name)
             })
           /* otherwise create an empty row to preserve XHTML validation */  
@@ -149,7 +159,8 @@ export default {
               hasTotal: false,
               width: this.columns[i + 1].width,
               type: this.columns[i + 1].type,
-              value: ''
+              value: '',
+              format: undefined
             })
           }
         }
@@ -221,11 +232,24 @@ export default {
       type: Array,
       required: false,
       default: () => []
-    }
+    },
 
+    /* the optionals actions */
+    actions: {
+      type: Array,
+      required: false,
+      default: () => []
+    }
   },
 
   methods: {
+
+    /**
+      * When a specific action is triggered
+    */
+    actionTriggered: function (action) {
+      this.$emit('action-triggered', action)
+    },
 
     /**
       * Triggered when a TR is selected/unselected
@@ -246,7 +270,7 @@ export default {
       }
 
       /* notify */
-      this.$emit('selectedRowsChanged', this.selectedRows)
+      this.$emit('selected-rows-changed', this.selectedRows)
     },
 
     /**
@@ -307,6 +331,15 @@ export default {
     background: transparent;
     outline: 0;
     cursor: pointer;
+    color: rgba(0,0,0,0.54)
+  }
+
+  .sym-icon-button[disabled] {
+    color: rgba(0,0,0,0.12)
+  }
+
+  .sym-icon-button-primary {
+    color: rgba(0,0,0,0.83)    
   }
 
   .sym-icon-button:focus {
@@ -464,30 +497,30 @@ export default {
     transform: translateY(-100px);
   }
 
-.ripple {
-  position: relative;
-  overflow: hidden;
-  transform: translate3d(0, 0, 0);
-}
-.ripple:after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
-  background-repeat: no-repeat;
-  background-position: 50%;
-  transform: scale(10, 10);
-  opacity: 0;
-  transition: transform .5s, opacity 1s;
-}
-.ripple:active:after {
-  transform: scale(0, 0);
-  opacity: .2;
-  transition: 0s;
-}
+  .ripple {
+    position: relative;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+  }
+  .ripple:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+  }
+  .ripple:active:after {
+    transform: scale(0, 0);
+    opacity: .2;
+    transition: 0s;
+  }
 </style>

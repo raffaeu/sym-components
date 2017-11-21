@@ -9,8 +9,22 @@ new Vue({
     },
     el: '#app',
 
+    methods: {
+        selectionChanged: function (rows) {
+            console.log(`rows selected changed ${rows.length}`)
+            Vue.set(this, 'selectedRows', rows)
+            Vue.set(this.actions[0], 'disabled', rows.length < 1)
+            Vue.set(this.actions[1], 'disabled', rows.length < 1)
+            Vue.set(this.actions[2], 'disabled', rows.length < 1)
+        },
+        iconClick: function (command) {
+            console.log(`Action ${command.name} has been triggered`)
+        }
+    },
+
     data() {
         return {
+            selectedRows: [],
             items: [
                 {
                     'id': 1,
@@ -19,7 +33,8 @@ new Vue({
                     'email': 'jpenddreth0@census.gov',
                     'gender': 'Female',
                     'ip_address': '26.58.193.2',
-                    'salary': '1250.00'
+                    'salary': 1250.00,
+                    'hour_fee': 132.00
                 }, {
                     'id': 2,
                     'first_name': 'Giavani',
@@ -27,7 +42,8 @@ new Vue({
                     'email': 'gfrediani1@senate.gov',
                     'gender': 'Male',
                     'ip_address': '229.179.4.212',
-                    'salary': '1250.00'
+                    'salary': '1250.00',
+                    'hour_fee': 145.00
                 }, {
                     'id': 3,
                     'first_name': 'Noell',
@@ -35,7 +51,8 @@ new Vue({
                     'email': 'nbea2@imageshack.us',
                     'gender': 'Female',
                     'ip_address': '180.66.162.255',
-                    'salary': '3750.00'
+                    'salary': '3750.00',
+                    'hour_fee': 320.00
                 }, {
                     'id': 4,
                     'first_name': 'Willard',
@@ -43,10 +60,12 @@ new Vue({
                     'email': 'wvalek3@vk.com',
                     'gender': 'Male',
                     'ip_address': '67.76.188.26',
-                    'salary': '1250.00'
+                    'salary': 1250.00,
+                    'hour_fee': 210.00
                 }
             ],
-            columns: [{
+            columns: [
+                {
                     name: 'id',
                     type: 'string',
                     width: 30,
@@ -83,9 +102,10 @@ new Vue({
                     label: 'Salary',
                     hasTotal: true,
                     format: function (val) { 
-                        // console.log(`val is ${val} and item is ${item}`)
-                        console.log(`val is ${val}`)
-                        return val 
+                        return new Intl
+                            .NumberFormat('en-US', {
+                                style: 'currency', currency: 'EUR'
+                            }).format(val) 
                     }
                 },
                 {
@@ -93,6 +113,36 @@ new Vue({
                     type: 'string',
                     width: 150,
                     label: 'IP Address'
+                },
+                {
+                    name: 'hour_fee',
+                    type: 'currency',
+                    width: 150,
+                    label: 'Hour fee',
+                    hasTotal: true,
+                    format: function (val) { 
+                        return new Intl
+                        .NumberFormat('en-US', {
+                            style: 'currency', currency: 'EUR'
+                        }).format(val) 
+                    }
+                }                
+            ],
+            actions: [
+                {
+                    name: 'add',
+                    icon: 'add',
+                    disabled: true
+                },
+                {
+                    name: 'delete',
+                    icon: 'delete',
+                    disabled: true
+                },
+                {
+                    name: 'edit',
+                    icon: 'edit',
+                    disabled: true
                 }
             ]
         }

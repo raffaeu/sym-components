@@ -14,6 +14,9 @@
                 footer-label="Totals"
                 :items="items"
                 :columns="columns"
+                :actions="actions"
+                @selected-rows-changed="selectionChanged"
+                @action-triggered="iconClick"
             />
         </article>
         <script src="resources/bundle.js"></script>
