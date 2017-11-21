@@ -7,7 +7,7 @@
     <div class="sym-table-header">
 
       <!-- Title -->
-      <div class="sym-table-header-content">{{ title }}</div>
+      <div class="sym-table-header-content ripple" @click="toggleCollapse">{{ title }}</div>
       
       <!-- Optional commands -->
       <div class="sym-table-icons">
@@ -17,7 +17,7 @@
 
         <!-- collapsible -->
         <div v-if="collapsible">
-          <button class="sym-icon-button" @click="toggleCollapse">
+          <button class="sym-icon-button ripple" @click="toggleCollapse">
             <i class="material-icons md-24" :class="`icon-${isCollapsed ? 'down' : 'up'}`">expand_less</i>
           </button>
         </div>
@@ -28,74 +28,78 @@
     <!-- END table header -->
 
     <!-- data table -->
-    <table class="unselectable" v-if="!isCollapsed">
+    <transition name="none">
 
-      <!-- header -->
-      <thead>
-        <tr>
+      <table class="unselectable" v-if="!isCollapsed">
 
-          <!-- selection -->
-          <th class="begin"></th>
+        <!-- header -->
+        <thead>
+          <tr>
 
-          <!-- headers definition -->
-          <th 
+            <!-- selection -->
+            <th class="begin"></th>
+
+            <!-- headers definition -->
+            <th 
+              v-for="(col, colIndex) in columns" 
+              :key="colIndex" 
+              :class="`head-${col.type}`"
+              :width="isNaN(col.width) ? 'auto' : col.width">
+              {{ col.label }}
+            </th>
+
+            <th class="end"></th>
+
+          </tr>
+        </thead>
+
+        <!-- optional footer MUST be before data for XHTML validation -->      
+        <tfoot v-if="hasFooter">
+          <tr class="footer">
+
+            <!-- footer label -->
+            <th class="footer-label" colspan="2">{{ footerLabel }}</th>
+
+            <!-- totals, except first column -->
+            <th 
+              v-for="(col, colIndex) in totals" 
+              :key="colIndex" 
+              :class="`head-${col.type}`"
+              :width="isNaN(col.width) ? 'auto' : col.width">
+              {{ formatValue(col.value, col) }}
+            </th>
+
+          </tr>
+        </tfoot>
+
+        <!-- data content -->
+        <tbody>
+          <tr 
+            @click="toggleRow(item)" 
+            v-for="(item, index) in items" :key="index" 
+            :class="{ selected: selectedRows.indexOf(item) > -1 }">
+
+            <!-- selection -->
+            <td class="begin" 
+            :class="{ 'begin-selected': selectedRows.indexOf(item) > -1 }"></td>
+
+
+            <!-- rows with column definition -->
+            <td 
             v-for="(col, colIndex) in columns" 
             :key="colIndex" 
-            :class="`head-${col.type}`"
-            :width="isNaN(col.width) ? 'auto' : col.width">
-            {{ col.label }}
-          </th>
+            :class="`col-${col.type}`">
+              {{ formatValue(item[col.name], col, item) }}
+            </td>
 
-          <th class="end"></th>
+            <td class="end"></td>
 
-        </tr>
-      </thead>
+          </tr>
+        </tbody>
 
-      <!-- optional footer MUST be before data for XHTML validation -->      
-      <tfoot v-if="hasFooter">
-        <tr class="footer">
+      </table>
 
-          <!-- footer label -->
-          <th class="footer-label" colspan="2">{{ footerLabel }}</th>
-
-          <!-- totals, except first column -->
-          <th 
-            v-for="(col, colIndex) in totals" 
-            :key="colIndex" 
-            :class="`head-${col.type}`"
-            :width="isNaN(col.width) ? 'auto' : col.width">
-            {{ formatValue(col.value, col) }}
-          </th>
-
-        </tr>
-      </tfoot>
-
-      <!-- data content -->
-      <tbody>
-        <tr 
-          @click="toggleRow(item)" 
-          v-for="(item, index) in items" :key="index" 
-          :class="{ selected: selectedRows.indexOf(item) > -1 }">
-
-          <!-- selection -->
-          <td class="begin" 
-          :class="{ 'begin-selected': selectedRows.indexOf(item) > -1 }"></td>
-
-
-          <!-- rows with column definition -->
-          <td 
-          v-for="(col, colIndex) in columns" 
-          :key="colIndex" 
-          :class="`col-${col.type}`">
-            {{ formatValue(item[col.name], col, item) }}
-          </td>
-
-          <td class="end"></td>
-
-        </tr>
-      </tbody>
-
-    </table>
+    </transition>
     <!-- END data table -->
 
   </div>
@@ -267,7 +271,6 @@ export default {
       * format a value base on type
      */
     formatValue: function (val, col, item) {
-      debugger
       /* use custom format if defined */
       if (col.format) {
         return col.format(val, item)
@@ -302,6 +305,8 @@ export default {
   .sym-icon-button {
     border: 0;
     background: transparent;
+    outline: 0;
+    cursor: pointer;
   }
 
   .sym-icon-button:focus {
@@ -410,6 +415,8 @@ export default {
     display: table-cell;
     vertical-align: middle;
     padding-left: 16px;
+    outline: 0;
+    cursor: pointer;
   }
 
   .col-string, 
@@ -444,4 +451,43 @@ export default {
     transform: rotate(180deg);
     transition: transform 0.3s ease-in-out;
   }
+
+  .slide-enter-active {
+    transition: all .3s ease-in-out;
+  }
+  
+  .slide-leave-active {
+    transition: all .8s ease-in-out;
+  }
+
+  .slide-enter, .slide-leave-to {
+    transform: translateY(-100px);
+  }
+
+.ripple {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+.ripple:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform .5s, opacity 1s;
+}
+.ripple:active:after {
+  transform: scale(0, 0);
+  opacity: .2;
+  transition: 0s;
+}
 </style>
