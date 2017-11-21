@@ -87,7 +87,8 @@ Each Column of the `sym-data-table` can be configured according to the following
     type: 'currency',
     label: 'Total Amount',
     width: 150,
-    hasTotal: true
+    hasTotal: true,
+    format: (val, item) => {  }
 }
 ```
 
@@ -100,6 +101,7 @@ And these are the available options:
 | **label**   | `String`   | `true`   | The Text used in the Column Header   |
 | **width**   | `String`-`Int32`  | `true`   | The width in pixels, use `flex` for auto-expand   |
 | **hasTotal**   | `Boolean`  | `false`   | When `true` and `hasFooter` is also `true`, it will calculate a total fr the column using `float(2)`   |
+| **format**   | `Function`  | `false`   | Provides a function with two parameters `val` which is the current value and *optional* `item` which contains the entire row. **It must return a formatted value**  |
 
 ## Events
 

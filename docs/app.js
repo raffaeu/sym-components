@@ -81,7 +81,12 @@ new Vue({
                     type: 'currency',
                     width: 80,
                     label: 'Salary',
-                    hasTotal: true
+                    hasTotal: true,
+                    format: function (val) { 
+                        // console.log(`val is ${val} and item is ${item}`)
+                        console.log(`val is ${val}`)
+                        return val 
+                    }
                 },
                 {
                     name: 'ip_address',

@@ -87,7 +87,7 @@
           v-for="(col, colIndex) in columns" 
           :key="colIndex" 
           :class="`col-${col.type}`">
-            {{ formatValue(item[col.name], col.type, item) }}
+            {{ formatValue(item[col.name], col, item) }}
           </td>
 
           <td class="end"></td>
@@ -267,6 +267,7 @@ export default {
       * format a value base on type
      */
     formatValue: function (val, col, item) {
+      debugger
       /* use custom format if defined */
       if (col.format) {
         return col.format(val, item)

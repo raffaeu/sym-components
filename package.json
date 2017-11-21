@@ -1,6 +1,6 @@
 {
   "name": "sym-components",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A collection of Vue.js components, implementing Material Design guidelines",
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
