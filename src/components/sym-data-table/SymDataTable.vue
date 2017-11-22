@@ -185,7 +185,7 @@ export default {
               format: this.columns[i + 1].format,
               value: this.sumRowsByColumn(this.columns[i + 1].name)
             })
-          /* otherwise create an empty row to preserve XHTML validation */  
+          /* otherwise create an empty row to preserve XHTML validation */
           } else {
             totalsRow.push({
               hasTotal: false,
@@ -202,7 +202,6 @@ export default {
   },
 
   props: {
-    
     /* the title of the table */
     title: {
       type: String,
@@ -250,7 +249,7 @@ export default {
       type: String,
       required: false,
       default: 'Totals'
-    },    
+    },
 
     /* the items data-bound to the data table */
     items: {
@@ -300,7 +299,7 @@ export default {
 
       /* if it's selected, unselected or vice-versa */
       if (index > -1) {
-          this.selectedRows.splice(index, 1)
+        this.selectedRows.splice(index, 1)
       } else {
         if (!this.multiSelect) {
           this.selectedRows.splice(0, this.selectedRows.length)
@@ -349,8 +348,8 @@ export default {
         return `${parseFloat(val).toFixed(2)}`
       }
       return val
-    } 
-  }    
+    }
+  }
 }
 </script>
 
@@ -456,6 +455,10 @@ export default {
 
   .sym-table > table > tfoot > tr > th:first-child {
       padding: 0 0 0 16px;
+  }
+
+  .sym-table > table > tbody > tr:hover {
+    cursor: pointer;
   }
 
   .sym-table > table > tbody > tr:hover td:first-child {
