@@ -24,6 +24,11 @@
             <i class="material-icons md-24">{{ act.icon }}</i>
           </button>
 
+          <!-- temporary slot for extra controls -->
+          <div class="extra-commands">
+            <slot name="extra-commands"></slot>
+          </div>
+
           <!-- collapsible -->
           <button v-if="collapsible" class="sym-icon-button sym-icon-button-primary ripple" @click="toggleCollapse">
             <i class="material-icons md-24" :class="`icon-${isCollapsed ? 'down' : 'up'}`">expand_less</i>
@@ -75,7 +80,7 @@
               :key="colIndex" 
               :class="`head-${col.type}`"
               :width="isNaN(col.width) ? 'auto' : col.width">
-              {{ formatValue(col.value, col, col) }}
+              {{ formatValue(col.value, col, null) }}
             </th>
 
           </tr>
@@ -110,6 +115,33 @@
 
     </transition>
     <!-- END data table -->
+
+    <!-- pagination -->
+    <div class="sym-pagination" v-if="hasPagination">
+
+      <span>Rows per page</span>
+
+      <select>
+        <option>5</option>
+        <option>10</option>
+        <option>25</option>
+        <option>50</option>
+      </select>
+
+      <span>1-3 of 3</span>
+
+        <button 
+            class="sym-icon-button ripple">
+          <i class="material-icons md-24">navigate_before</i>
+        </button>
+
+        <button 
+            class="sym-icon-button ripple">
+          <i class="material-icons md-24">navigate_next</i>
+        </button>
+    
+    </div>
+    <!-- END pagination -->
 
   </div>
 
@@ -239,6 +271,13 @@ export default {
       type: Array,
       required: false,
       default: () => []
+    },
+
+    /* when true, display the pagination control */
+    hasPagination: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
 
@@ -344,6 +383,10 @@ export default {
 
   .sym-icon-button:focus {
     outline: 0;
+  }
+
+  .extra-commands {
+    display: inline;
   }
 
   .unselectable {

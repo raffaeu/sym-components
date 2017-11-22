@@ -1,6 +1,6 @@
 {
   "name": "sym-components",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "A collection of Vue.js components, implementing Material Design guidelines",
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
@@ -9,7 +9,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "webpack-dev-server --config docs/webpack.config.js --hot --inline",
+    "dev": "webpack-dev-server --config docs/webpack.config.js",
     "demo": "webpack --config docs/webpack.config.js",
     "build": "del dist && webpack --config build/webpack.config.js",
     "lint": "eslint --ext .js,.vue --fix src __tests__; exit 0",

@@ -104,7 +104,7 @@ new Vue({
                     format: function (val) { 
                         return new Intl
                             .NumberFormat('en-US', {
-                                style: 'currency', currency: 'EUR'
+                                style: 'currency', currency: 'USD'
                             }).format(val) 
                     }
                 },

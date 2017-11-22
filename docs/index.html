@@ -17,7 +17,9 @@
                 :actions="actions"
                 @selected-rows-changed="selectionChanged"
                 @action-triggered="iconClick"
-            />
+            >
+                <span slot="extra-commands">Some custom text</span>
+            </sym-data-table>
         </article>
         <script src="resources/bundle.js"></script>
     </body>
