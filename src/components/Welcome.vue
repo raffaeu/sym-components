@@ -8,7 +8,10 @@
 
         <ul>
             <li>
-                <router-link to="sym-data-table">Examples</router-link>
+                <router-link to="sym-data-table">sym-data-table Examples</router-link>
+            </li>
+            <li>
+                <router-link to="sym-button">sym-button Examples</router-link>
             </li>
         </ul>
     </div>
