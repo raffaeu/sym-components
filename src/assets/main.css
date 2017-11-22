@@ -3,6 +3,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     color: rgba(0, 0, 0, .83);
+    background-color: rgba(0, 0, 0, .06);
 }
 
 h1, h2, h3, h4, h5, h5 {

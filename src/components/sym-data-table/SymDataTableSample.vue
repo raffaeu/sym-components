@@ -4,6 +4,12 @@
 
     <h1>Data Table samples</h1>
 
+    <h3>Simple table with static array</h3>
+
+    <blockquote>
+      A simple data table populated by a static array of items and expandable/collapsible
+    </blockquote>
+
     <sym-data-table
       class="sym-data-table"
       title="Collapsible"
@@ -13,6 +19,12 @@
       :collapsed="false"
       :items="items"
       :columns="columns" />
+
+    <h3>Simple table collapsed</h3>
+
+    <blockquote>
+      A simple data table, collapsed by default
+    </blockquote>
 
     <sym-data-table
       class="sym-data-table"
