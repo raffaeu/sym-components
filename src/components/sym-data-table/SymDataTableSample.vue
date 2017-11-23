@@ -18,7 +18,8 @@
       :collapsible="true"
       :collapsed="false"
       :items="items"
-      :columns="columns" />
+      :columns="columns"
+      @collapse-toggle="collapseToggled" />
 
     <h3>Simple table collapsed</h3>
 
@@ -84,6 +85,9 @@ export default {
     },
     itemClick: function (command) {
       console.log(`Action ${command.name} has been triggered`)
+    },
+    collapseToggled: function (isCollapsed) {
+      console.log(`Table collapsed toggled (collapsed = ${isCollapsed})`)
     }
   },
 

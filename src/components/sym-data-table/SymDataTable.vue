@@ -316,6 +316,7 @@ export default {
      */
     toggleCollapse: function () {
       this.isCollapsed = !this.isCollapsed
+      this.$emit('collapse-toggle', this.isCollapsed)
     },
 
     /**
