@@ -7,7 +7,12 @@
     <div class="sym-table-header">
 
       <!-- Title -->
-      <div class="sym-table-header-content ripple" @click="toggleCollapse">{{ title }}</div>
+      <div 
+        class="sym-table-header-content"
+        :class="{
+          ripple: collapsible
+        }" 
+        @click="toggleCollapse">{{ title }}</div>
       
       <!-- Optional commands -->
       <div class="sym-table-icons">
@@ -315,6 +320,10 @@ export default {
       * switch between collapsed mode
      */
     toggleCollapse: function () {
+      // Do nothing if not collapsible
+      if (!this.collapsible) {
+        return
+      }
       this.isCollapsed = !this.isCollapsed
       this.$emit('collapse-toggle', this.isCollapsed)
     },
