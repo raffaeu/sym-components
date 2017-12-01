@@ -148,6 +148,14 @@
     </div>
     <!-- END pagination -->
 
+    <!-- bottom commands -->
+    <div class="bottom-commands">
+      <slot name="bottom-commands">
+          <!-- Optional slot for bottom buttons and such -->        
+      </slot>
+    </div>
+    <!-- END bottom commands -->
+
   </div>
 
 </template>
