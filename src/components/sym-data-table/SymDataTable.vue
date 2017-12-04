@@ -1,7 +1,12 @@
 <template>
 
   <!-- main container -->
-  <div class="sym-table" :class="{ card: isCard }">
+  <div 
+    class="sym-table" 
+    :class="{ 
+      card: isCard,
+      selectable: selectable
+    }">
 
     <!-- table header -->
     <div class="sym-table-header">
@@ -229,6 +234,13 @@ export default {
       default: false
     },
 
+    /* when true, rows can be selected */
+    selectable: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+
     /* when true, provide a card with shadow and 16px padding */
     isCard: {
       type: Boolean,
@@ -307,6 +319,11 @@ export default {
       * bound to a single click/tap event
     */
     toggleRow: function (item) {
+      /* if select is disabled, do nothing */
+      if (!this.selectable) {
+        return
+      }
+
       /* get the selected row */
       let index = this.selectedRows.indexOf(item)
 
@@ -475,11 +492,11 @@ export default {
       padding: 0 0 0 16px;
   }
 
-  .sym-table > table > tbody > tr:hover {
+  .sym-table.selectable > table > tbody > tr:hover {
     cursor: pointer;
   }
 
-  .sym-table > table > tbody > tr:hover td:first-child {
+  .sym-table.selectable > table > tbody > tr:hover td:first-child {
     border-left: 3px solid #FFA300;
   }
 
