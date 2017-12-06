@@ -17,11 +17,11 @@
       :is-card="true"
       :collapsible="true"
       :collapsed="false"
-      :items="items"
+      :items="items"      
       :columns="columns"
-      @collapse-toggle="collapseToggled" />
+      @collapse-toggle="collapseToggled" />    
 
-    <h3>Simple table collapsed</h3>
+    <h3>Simple table collapsed</h3>    
 
     <blockquote>
       A simple data table, collapsed by default
@@ -57,9 +57,9 @@
       :items="items"
       :columns="columns"
       :actions="actions"
+      :clear-selection="isClear"      
       @selected-rows-changed="selectionChanged"
       @action-triggered="itemClick" />
-
   </div>
 
 </template>
@@ -82,9 +82,17 @@ export default {
       Vue.set(this.actions[0], 'disabled', rows.length < 1)
       Vue.set(this.actions[1], 'disabled', rows.length < 1)
       Vue.set(this.actions[2], 'disabled', rows.length < 1)
+      Vue.set(this.actions[3], 'disabled', rows.length < 1)
+      this.isClear = false
     },
     itemClick: function (command) {
       console.log(`Action ${command.name} has been triggered`)
+
+      switch (command.name) {
+      case 'clear':
+        this.isClear = true
+        break
+      }
     },
     collapseToggled: function (isCollapsed) {
       console.log(`Table collapsed toggled (collapsed = ${isCollapsed})`)
@@ -212,8 +220,14 @@ export default {
           name: 'edit',
           icon: 'edit',
           disabled: true
+        },
+        {
+          name: 'clear',
+          icon: 'clear_all',
+          disabled: true
         }
-      ]
+      ],
+      isClear: false
     }
   }
 }

@@ -302,6 +302,22 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+
+    /* this property will be watched, when it's toggled to true selected items will be reset */
+    clearSelection: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+
+  watch: {
+    /* when clearSelection property is toggled to true, reset selected items */
+    clearSelection: function (value) {
+      if (value === true) {
+        this.selectedRows = []
+      }
     }
   },
 
