@@ -635,4 +635,11 @@ export default {
     opacity: .2;
     transition: 0s;
   }
+
+  .no-data {  
+    text-align: center; 
+    color: rgba(0, 0, 0, .40);
+    margin: 0;
+    padding: 16px 0 16px 0;
+  }
 </style>
