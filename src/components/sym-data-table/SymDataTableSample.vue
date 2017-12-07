@@ -19,6 +19,7 @@
       :collapsed="false"
       :items="items"      
       :columns="columns"
+      no-data-message="All out!"
       @collapse-toggle="collapseToggled" />    
 
     <h3>Simple table collapsed</h3>    

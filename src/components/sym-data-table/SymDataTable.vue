@@ -51,8 +51,9 @@
     </div>
     <!-- END table header -->
 
+    
     <!-- data table -->
-    <transition name="none">
+    <transition name="none" v-if="items != null && items.length > 0">
 
       <table class="unselectable" v-if="!isCollapsed">
 
@@ -124,7 +125,14 @@
       </table>
 
     </transition>
-    <!-- END data table -->
+    <!-- END data table -->    
+
+    <!-- No item message -->    
+    <p v-else class="no-data">
+      {{ noDataMessage }}
+    </p>    
+    <!-- END No item message -->
+
 
     <!-- pagination -->
     <div class="sym-pagination" v-if="hasPagination">
@@ -309,6 +317,13 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+
+    /* message to show when there are no items */
+    noDataMessage: {
+      type: String,
+      required: false,
+      default: 'No data'
     }
   },
 
