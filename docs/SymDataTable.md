@@ -57,7 +57,7 @@ Then you can start to use the declarative approach to create a new instance of i
 <sym-data-table
     title="Table title"
     :items="myItems"
-    :isCard="true"
+    :is-card="true"
     :columns="myColumns">
 </sym-data-table>
 ```
@@ -69,14 +69,16 @@ Then you can start to use the declarative approach to create a new instance of i
 | Name   | Type   | Required   | Default   | Description   |
 |:---   |:---   |:---   |:---   |:---   |
 | **title**   | `String`   | `true`   | `sym-data-table`   | The Title displayed by the Table   |
-| **multiSelect**   | `Boolean`   | `false`   | `false`   | Provides multi-select behaviour   |
-| **isCard**   | `Boolean`   | `false`   | `false`   | When true, display a Material Design Card with shadowing and 16 px padding   |
+| **multi-select**   | `Boolean`   | `false`   | `false`   | Provides multi-select behaviour   |
+| **is-card**   | `Boolean`   | `false`   | `false`   | When true, display a Material Design Card with shadowing and 16 px padding   |
 | **collapsible**   | `Boolean`   | `false`   | `false`   | When true, display a chevron on the right top of the table, which allows to collapse/expand the table content   |
-| **hasFooter**   | `Boolean`   | `false`   | `false`   | When true, display a footer `tfoot` containing custom totals and a custom label   |
-| **footerLabel**   | `String`   | `false`   | `Totals`   | The Title displayed in the footer (*it takes two col-span*)   |
+| **has-footer**   | `Boolean`   | `false`   | `false`   | When true, display a footer `tfoot` containing custom totals and a custom label   |
+| **footer-label**   | `String`   | `false`   | `Totals`   | The Title displayed in the footer (*it takes two col-span*)   |
 | **items**   | `Array`   | `true`   | `empty`   | The collection of items to be displayed   |
 | **columns**   | `Array`   | `false`   | `empty`   | The columns configuration (*see columns configuration section*), if empty it will auto-create the columns   |
 | **actions**   | `Array`   | `false`   | `empty`   | A list of Actions that can be displayed on the table header   |
+| **no-data-message**   | `String`   | `false`   | `No Data`   | The message to show if the table has no items   |
+| **clear-selection**   | `Boolean`   | `false`   | `false`   | When set to true the selected items will be cleared   |
 
 ### Columns Configuration
 
