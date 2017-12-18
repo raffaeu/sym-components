@@ -210,22 +210,26 @@ export default {
         {
           name: 'add',
           icon: 'add',
-          disabled: true
+          disabled: true,
+          tooltip: 'Add an item'
         },
         {
           name: 'delete',
           icon: 'delete',
-          disabled: true
+          disabled: true,
+          tooltip: 'Remove an item'
         },
         {
           name: 'edit',
           icon: 'edit',
-          disabled: true
+          disabled: true,
+          tooltip: 'Edit an item'
         },
         {
           name: 'clear',
           icon: 'clear_all',
-          disabled: true
+          disabled: true,
+          tooltip: 'Clear selection'
         }
       ],
       isClear: false

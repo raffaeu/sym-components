@@ -30,7 +30,9 @@
               :key="actIndex" 
               class="sym-icon-button"
               :class="{ 'ripple': !act.disabled }"
-              @click="actionTriggered(act)">
+              @click="actionTriggered(act)"
+              :alt="act.tooltip"
+              :title="act.tooltip">
             <i class="material-icons md-24">{{ act.icon }}</i>
           </button>
 
