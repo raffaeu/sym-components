@@ -540,6 +540,7 @@ export default {
     flex-flow: column; 
     height: 100%; 
     justify-content: space-around;
+    width: max-content
   }
 
   .card {
@@ -564,7 +565,7 @@ export default {
     padding-left: 16px;
     outline: 0;
     cursor: pointer;
-    width: 100%;
+    width: 100%
   }
 
   .col-string, 
