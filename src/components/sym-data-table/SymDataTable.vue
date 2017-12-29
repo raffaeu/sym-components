@@ -53,7 +53,13 @@
     </div>
     <!-- END table header -->
 
-    
+    <!-- sub header -->
+    <div class="sub-header" v-if="!isCollapsed">
+      <slot name="sub-header">
+      </slot>
+    </div>
+    <!-- END sub header -->
+
     <!-- data table -->
     <transition name="none" v-if="items != null && items.length > 0">
 
@@ -471,6 +477,10 @@ export default {
 
   .sym-table {
     font-family: 'Roboto', sans-serif;
+  }
+
+  .sub-header {
+    padding: 0 16px;
   }
 
   .sym-table > table {
