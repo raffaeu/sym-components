@@ -38,6 +38,12 @@
       :items="items"
       :columns="columns" />
 
+    <h3>Simple table with Totals</h3>    
+
+    <blockquote>
+      A simple data table with totals on some columns
+    </blockquote>
+
     <sym-data-table
       class="sym-data-table"
       title="With Totals"
@@ -47,6 +53,12 @@
       :has-footer="true"
       :items="items"
       :columns="columns" />
+
+    <h3>Simple table with Actions and Events</h3>    
+
+    <blockquote>
+      A simple data table with Actions and events to enable/disable actions
+    </blockquote>
 
     <sym-data-table
       class="sym-data-table"
@@ -61,6 +73,30 @@
       :clear-selection="isClear"      
       @selected-rows-changed="selectionChanged"
       @action-triggered="itemClick" />
+
+    <h3>Simple table with sub-header</h3>
+
+    <blockquote>
+      A simple data table with sub-header
+    </blockquote>
+
+    <sym-data-table
+      class="sym-data-table"
+      title="With Sub Header"
+      :multi-select="false"
+      :is-card="true"
+      :collapsible="true"
+      :collapsed="false"
+      :items="items"      
+      :columns="columns"
+      no-data-message="All out!"
+      @collapse-toggle="collapseToggled">
+        <div slot="sub-header">
+          <h3>Sub Header slot which can have multiple rows</h3>
+          <p>Some <i>extra text</i></p>
+        </div>
+    </sym-data-table>    
+      
   </div>
 
 </template>
