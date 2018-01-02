@@ -91,7 +91,7 @@
           <tr class="footer">
 
             <!-- footer label -->
-            <th class="footer-label" colspan="2">{{ footerLabel }}</th>
+            <th class="footer-label" colspan="3">{{ footerLabel }}</th>
 
             <!-- totals, except first column -->
             <th 
@@ -208,23 +208,24 @@ export default {
     totals: function () {
       /* without footer visible, no need to calculate totals */
       if (this.hasFooter) {
-        var totalsRow = []
-        for (var i = 0; i < this.columns.length - 1; i++) {
+        let totalsRow = []
+        const rowsToSkip = 2
+        for (var i = 0; i < this.columns.length - rowsToSkip; i++) {
           /* if the column has total, calculate */
-          if (this.columns[i + 1].hasTotal) {
+          if (this.columns[i + rowsToSkip].hasTotal && this.calculateTotals) {
             totalsRow.push({
-              hasTotal: this.columns[i + 1].hasTotal,
-              width: this.columns[i + 1].width,
-              type: this.columns[i + 1].type,
-              format: this.columns[i + 1].format,
-              value: this.sumRowsByColumn(this.columns[i + 1].name)
+              hasTotal: this.columns[i + rowsToSkip].hasTotal,
+              width: this.columns[i + rowsToSkip].width,
+              type: this.columns[i + rowsToSkip].type,
+              format: this.columns[i + rowsToSkip].format,
+              value: this.sumRowsByColumn(this.columns[i + rowsToSkip].name)
             })
           /* otherwise create an empty row to preserve XHTML validation */
           } else {
             totalsRow.push({
               hasTotal: false,
-              width: this.columns[i + 1].width,
-              type: this.columns[i + 1].type,
+              width: this.columns[i + rowsToSkip].width,
+              type: this.columns[i + rowsToSkip].type,
               value: '',
               format: undefined
             })
@@ -283,6 +284,12 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+
+    calculateTotals: {
+      type: Boolean,
+      required: false,
+      default: true
     },
 
     /* when set, provides a custom label for the totals */
@@ -407,14 +414,14 @@ export default {
       * format a value base on type
      */
     formatValue: function (val, col, item) {
+      /* safe type check */
+      if (val === null | val === '') {
+        return null
+      }
+
       /* use custom format if defined */
       if (col.format) {
         return col.format(val, item)
-      }
-
-      /* safe type check */
-      if (val === null) {
-        return null
       }
 
       /* if col is currency */
