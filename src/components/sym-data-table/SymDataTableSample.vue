@@ -41,6 +41,34 @@
     <h3>Simple table with Totals</h3>    
 
     <blockquote>
+      A simple data table with Footer but no totals
+    </blockquote>
+
+    <sym-data-table
+      class="sym-data-table"
+      title="Without Totals but Footer"
+      :multi-select="true"
+      :is-card="true"
+      :collapsible="true"
+      :has-footer="true"
+      :calculate-totals="false"
+      footer-label=""
+      :items="items"
+      :columns="columns" />
+
+    <sym-data-table
+      class="sym-data-table"
+      title="Without Totals but Footer Label"
+      :multi-select="true"
+      :is-card="true"
+      :collapsible="true"
+      :has-footer="true"
+      :calculate-totals="false"
+      footer-label="Some Custom Footer Label"
+      :items="items"
+      :columns="columns" />
+
+    <blockquote>
       A simple data table with totals on some columns
     </blockquote>
 
@@ -151,7 +179,7 @@ export default {
           'hour_fee': 132.00
         }, {
           'id': 2,
-          'first_name': 'Giavani',
+          'first_name': 'Giovanni',
           'last_name': 'Frediani',
           'email': 'gfrediani1@senate.gov',
           'gender': 'Male',
