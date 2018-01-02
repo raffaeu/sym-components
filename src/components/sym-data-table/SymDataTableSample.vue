@@ -151,7 +151,7 @@ export default {
           'hour_fee': 132.00
         }, {
           'id': 2,
-          'first_name': 'Giavani',
+          'first_name': 'Giovanni',
           'last_name': 'Frediani',
           'email': 'gfrediani1@senate.gov',
           'gender': 'Male',
