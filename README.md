@@ -2,6 +2,10 @@
 
 A collection of Vue.js components implementing the Material Design specifications.
 
+Current stable version:
+
+[![npm version](https://badge.fury.io/js/sym-components.svg)](https://badge.fury.io/js/sym-components)
+
 ## Components
 
 You can install the components using `NPM` as following:
