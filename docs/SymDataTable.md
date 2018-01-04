@@ -70,15 +70,19 @@ Then you can start to use the declarative approach to create a new instance of i
 |:---   |:---   |:---   |:---   |:---   |
 | **title**   | `String`   | `true`   | `sym-data-table`   | The Title displayed by the Table   |
 | **multi-select**   | `Boolean`   | `false`   | `false`   | Provides multi-select behaviour   |
+| **selectable**   | `Boolean`   | `false`   | `true`   | When true, the rows are selectable and the selection is tracked   |
 | **is-card**   | `Boolean`   | `false`   | `false`   | When true, display a Material Design Card with shadowing and 16 px padding   |
 | **collapsible**   | `Boolean`   | `false`   | `false`   | When true, display a chevron on the right top of the table, which allows to collapse/expand the table content   |
+| **collapsed**   | `Boolean`   | `false`   | `false`   | When true, the table is collapsed on load   |
 | **has-footer**   | `Boolean`   | `false`   | `false`   | When true, display a footer `tfoot` containing custom totals and a custom label   |
+| **calculate-totals**   | `Boolean`   | `false`   | `true`   | When true, the calculation of the Totals, for each column identified with a `hasTotal`flag, is calculated   |
 | **footer-label**   | `String`   | `false`   | `Totals`   | The Title displayed in the footer (*it takes two col-span*)   |
 | **items**   | `Array`   | `true`   | `empty`   | The collection of items to be displayed   |
 | **columns**   | `Array`   | `false`   | `empty`   | The columns configuration (*see columns configuration section*), if empty it will auto-create the columns   |
 | **actions**   | `Array`   | `false`   | `empty`   | A list of Actions that can be displayed on the table header   |
-| **no-data-message**   | `String`   | `false`   | `No Data`   | The message to show if the table has no items   |
+| **has-pagination**   | `Boolean`   | `false`   | `false`   | When true, it display a material design pagination control on the bottom right of the table   |
 | **clear-selection**   | `Boolean`   | `false`   | `false`   | When set to true the selected items will be cleared   |
+| **no-data-message**   | `String`   | `false`   | `No Data`   | The message to show if the table has no items   |
 
 ### Columns Configuration
 
