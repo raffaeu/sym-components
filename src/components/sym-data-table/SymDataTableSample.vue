@@ -19,8 +19,24 @@
       :collapsed="false"
       :items="items"      
       :columns="columns"
-      no-data-message="All out!"
+      no-data-message="No Data available"
       @collapse-toggle="collapseToggled" />    
+
+    <blockquote>
+      A simple data table without data
+    </blockquote>
+
+    <sym-data-table
+      class="sym-data-table"
+      title="Collapsible"
+      :multi-select="true"
+      :is-card="true"
+      :collapsible="true"
+      :collapsed="false"
+      :items="no_data"      
+      :columns="columns"
+      no-data-message="No Data available"
+      @collapse-toggle="collapseToggled" /> 
 
     <h3>Simple table collapsed</h3>    
 
@@ -167,6 +183,7 @@ export default {
   data () {
     return {
       selectedRows: [],
+      no_data: [],
       items: [
         {
           'id': 1,
