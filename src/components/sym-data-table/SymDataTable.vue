@@ -31,7 +31,7 @@ export default {
       /* without footer visible, no need to calculate totals */
       if (this.hasFooter) {
         let totalsRow = []
-        const rowsToSkip = 2
+        const rowsToSkip = 0
         for (var i = 0; i < this.columns.length - rowsToSkip; i++) {
           /* if the column has total, calculate */
           if (this.columns[i + rowsToSkip].hasTotal && this.calculateTotals) {

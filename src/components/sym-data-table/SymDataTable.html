@@ -74,10 +74,11 @@
         <tr class="footer">
 
           <!-- footer label -->
-          <th class="footer-label" colspan="3">{{ footerLabel }}</th>
+          <!-- <th class="footer-label" colspan="3">{{ footerLabel }}</th> -->
+          <th class="begin"></th>
 
           <!-- totals, except first column -->
-          <th v-for="(col, colIndex) in totals" :key="colIndex" :class="`head-${col.type}`" :width="isNaN(col.width) ? 'auto' : col.width">
+          <th v-for="(col, colIndex) in totals" :key="colIndex" :class="`head-${col.type}`">
             {{ formatValue(col.value, col, null) }}
           </th>
 
