@@ -17,12 +17,19 @@ export default {
       selectedRows: [],
 
       /* placeholder for collapsed state */
-      isCollapsed: false
+      isCollapsed: false,
+
+      /* backward pagination enabled */
+      backDisabled: true,
+
+      /* forward pagination enabled */
+      forwardDisabled: true
     }
   },
 
   mounted () {
     this.isCollapsed = this.collapsed
+    this.evaluatePager()
   },
 
   computed: {
@@ -128,6 +135,27 @@ export default {
       default: () => []
     },
 
+    /* the amount of items to be shown per each page */
+    itemsPerPage: {
+      type: Number,
+      required: false,
+      default: 25
+    },
+
+    /* the total nr of items */
+    totalItems: {
+      type: Number,
+      required: false,
+      default: 100
+    },
+
+    /* the current page */
+    currentPage: {
+      type: Number,
+      required: false,
+      default: 1
+    },
+
     /* the columns configuration */
     columns: {
       type: Array,
@@ -170,16 +198,44 @@ export default {
       if (value === true) {
         this.selectedRows = []
       }
+    },
+    /* when items change */
+    items: function (value) {
+      this.evaluatePager()
     }
   },
 
   methods: {
+    /**
+     * Re-evaluate the pager commands
+     */
+    evaluatePager: function () {
+      console.log('items watch triggered')
+      // if EOF
+      if ((this.itemsPerPage * this.items.length) >= this.totalItems) {
+        this.forwardDisabled = true
+        this.backDisabled = false
+      }
+
+      // if BOF
+      if ((((this.currentPage - 1) * this.itemsPerPage) + 1) === 1) {
+        this.backDisabled = true
+        this.forwardDisabled = false
+      }
+    },
 
     /**
      * When a specific action is triggered
      */
     actionTriggered: function (action) {
       this.$emit('action-triggered', action)
+    },
+
+    /**
+     * When the pagination is changed
+     */
+    pagerTriggered: function (page) {
+      this.$emit('page-changed', page)
     },
 
     /**

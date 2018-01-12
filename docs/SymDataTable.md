@@ -160,6 +160,34 @@ selectionChanged: function (rows) {
 }
 ```
 
+## Pagination
+
+`sym-data-table` also provide a paginations control which can raise event that can be used to paginate the data.
+
+| Name   | Type   | Required   | Default   | Description   |
+|:---   |:---   |:---   |:---   |:---   |
+| **has-pagination**   | `Boolean`   | `false`   | `false`   | Display the Pagination control   |
+| **items-per-page**   | `Number`   | `false`   | 25   | The amount of records that should be displayed for each page   |
+| **total-items**   | `Number`   | `false`   | 100   | The total number of items to be displayed (_it is used to calculate the nr. of available pages_)   |
+| **current-page**   | `Number`   | `false`   | 1   | The index (_starting from 1_) of the current page displayed   |
+
+The consumer needs to take care of the data binding of forementioned properties. The Pager only raises events when the page or items per page are changed and when the items data bound to the table change. The ```current-page```, ```items-per-page``` and ```total-items``` needs to be kept in sync by the consumer, like the following example:
+
+```html
+
+<sym-data-table
+    :items="items"      
+    :columns="columns"
+    :has-pagination="true"
+    :items-per-page="5"
+    :total-items="totalItems"
+    :current-page="currentPage">
+</sym-data-table> 
+
+```
+
+> **Note**: on the other side, the pagination controls are enabled/disabled automatically by the ```sym-data-table``` according to the current page / total items formula.
+
 ## Events
 
 `sym-data-table` also raises events according to the standard Vue.js architecture.
@@ -182,4 +210,14 @@ this.$emit('selected-rows-changed', [array of selected rows])
 
 ```javascript
 this.$emit('action-triggered', [an action [name, icon, enabled]]])
+```
+
+### page-changed
+
+> It is triggered every time the pagination is triggered (action or current page)
+
+#### Implementation
+
+```javascript
+this.$emit('page-changed', [newPage])
 ```

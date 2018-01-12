@@ -273,3 +273,39 @@ td {
   opacity: .2;
   transition: 0s;
 }
+
+/*==============================================================
+    5. Pagination
+==============================================================*/
+
+.sym-pagination {
+    height: 47px;
+    display: table;
+    overflow: hidden;
+    width: 100%;  
+}
+
+.sym-pagination-icons,
+.sym-pagination-navigation {
+    float: right;
+    padding-right: 16px;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    height: 100%;
+    justify-content: space-around;
+    width: max-content
+}
+
+.sym-pagination-icons * {
+    padding-left: 16px;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, .54);
+}
+
+.sym-pagination-navigation * {
+    padding: 0 3px;
+    font-size: 13px;
+    font-weight: 400;
+}
