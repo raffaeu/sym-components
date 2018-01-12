@@ -1,185 +1,7 @@
-<template>
-
-  <!-- main container -->
-  <div 
-    class="sym-table" 
-    :class="{ 
-      card: isCard,
-      selectable: selectable
-    }">
-
-    <!-- table header -->
-    <div class="sym-table-header">
-
-      <!-- Title -->
-      <div 
-        class="sym-table-header-content"
-        :class="{
-          ripple: collapsible
-        }" 
-        @click="toggleCollapse">{{ title }}</div>
-      
-      <!-- Optional commands -->
-      <div class="sym-table-icons">
-
-        <!-- actions -->
-        <div name="table-commands">
-
-          <button v-for="(act, actIndex) in actions"
-              :disabled="act.disabled" 
-              :key="actIndex" 
-              class="sym-icon-button"
-              :class="{ 'ripple': !act.disabled }"
-              @click="actionTriggered(act)"
-              :alt="act.tooltip"
-              :title="act.tooltip">
-            <i class="material-icons md-24">{{ act.icon }}</i>
-          </button>
-
-          <!-- temporary slot for extra controls -->
-          <div class="extra-commands">
-            <slot name="extra-commands"></slot>
-          </div>
-
-          <!-- collapsible -->
-          <button v-if="collapsible" class="sym-icon-button sym-icon-button-primary ripple" @click="toggleCollapse">
-            <i class="material-icons md-24" :class="`icon-${isCollapsed ? 'down' : 'up'}`">expand_less</i>
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-    <!-- END table header -->
-
-    <!-- sub header -->
-    <div class="sub-header" v-if="!isCollapsed">
-      <slot name="sub-header">
-      </slot>
-    </div>
-    <!-- END sub header -->
-
-    <!-- data table -->
-    <transition name="none" v-if="items != null && items.length > 0">
-
-      <table class="unselectable" v-if="!isCollapsed">
-
-        <!-- header -->
-        <thead>
-          <tr>
-
-            <!-- selection -->
-            <th class="begin"></th>
-
-            <!-- headers definition -->
-            <th 
-              v-for="(col, colIndex) in columns" 
-              :key="colIndex" 
-              :class="`head-${col.type}`"
-              :width="isNaN(col.width) ? 'auto' : col.width">
-              {{ col.label }}
-            </th>
-
-            <th class="end"></th>
-
-          </tr>
-        </thead>
-
-        <!-- optional footer MUST be before data for XHTML validation -->      
-        <tfoot v-if="hasFooter">
-          <tr class="footer">
-
-            <!-- footer label -->
-            <th class="footer-label" colspan="3">{{ footerLabel }}</th>
-
-            <!-- totals, except first column -->
-            <th 
-              v-for="(col, colIndex) in totals" 
-              :key="colIndex" 
-              :class="`head-${col.type}`"
-              :width="isNaN(col.width) ? 'auto' : col.width">
-              {{ formatValue(col.value, col, null) }}
-            </th>
-
-          </tr>
-        </tfoot>
-
-        <!-- data content -->
-        <tbody>
-          <tr 
-            @click="toggleRow(item)" 
-            v-for="(item, index) in items" :key="index" 
-            :class="{ selected: selectedRows.indexOf(item) > -1 }">
-
-            <!-- selection -->
-            <td class="begin" 
-            :class="{ 'begin-selected': selectedRows.indexOf(item) > -1 }"></td>
-
-
-            <!-- rows with column definition -->
-            <td 
-            v-for="(col, colIndex) in columns" 
-            :key="colIndex" 
-            :class="`col-${col.type}`">
-              {{ formatValue(item[col.name], col, item) }}
-            </td>
-
-            <td class="end"></td>
-
-          </tr>
-        </tbody>
-
-      </table>
-
-    </transition>
-    <!-- END data table -->    
-
-    <!-- No item message -->    
-    <p v-else class="no-data">
-      {{ noDataMessage }}
-    </p>    
-    <!-- END No item message -->
-
-
-    <!-- pagination -->
-    <div class="sym-pagination" v-if="hasPagination">
-
-      <span>Rows per page</span>
-
-      <select>
-        <option>5</option>
-        <option>10</option>
-        <option>25</option>
-        <option>50</option>
-      </select>
-
-      <span>1-3 of 3</span>
-
-        <button 
-            class="sym-icon-button ripple">
-          <i class="material-icons md-24">navigate_before</i>
-        </button>
-
-        <button 
-            class="sym-icon-button ripple">
-          <i class="material-icons md-24">navigate_next</i>
-        </button>
-    
-    </div>
-    <!-- END pagination -->
-
-    <!-- bottom commands -->
-    <div class="bottom-commands">
-      <slot name="bottom-commands">
-          <!-- Optional slot for bottom buttons and such -->        
-      </slot>
-    </div>
-    <!-- END bottom commands -->
-
-  </div>
-
+<template src="./SymDataTable.html">
 </template>
+<style src="./SymDataTable.css" scoped>
+</style>
 <script>
 /**
  * SymDataTable (usage sym-data-table)
@@ -220,7 +42,7 @@ export default {
               format: this.columns[i + rowsToSkip].format,
               value: this.sumRowsByColumn(this.columns[i + rowsToSkip].name)
             })
-          /* otherwise create an empty row to preserve XHTML validation */
+            /* otherwise create an empty row to preserve XHTML validation */
           } else {
             totalsRow.push({
               hasTotal: false,
@@ -354,16 +176,16 @@ export default {
   methods: {
 
     /**
-      * When a specific action is triggered
-    */
+     * When a specific action is triggered
+     */
     actionTriggered: function (action) {
       this.$emit('action-triggered', action)
     },
 
     /**
-      * Triggered when a TR is selected/unselected
-      * bound to a single click/tap event
-    */
+     * Triggered when a TR is selected/unselected
+     * bound to a single click/tap event
+     */
     toggleRow: function (item) {
       /* if select is disabled, do nothing */
       if (!this.selectable) {
@@ -388,7 +210,7 @@ export default {
     },
 
     /**
-      * switch between collapsed mode
+     * switch between collapsed mode
      */
     toggleCollapse: function () {
       // Do nothing if not collapsible
@@ -400,7 +222,7 @@ export default {
     },
 
     /**
-      * sum all values of a specified column
+     * sum all values of a specified column
      */
     sumRowsByColumn: function (column) {
       var sum = 0
@@ -411,7 +233,7 @@ export default {
     },
 
     /**
-      * format a value base on type
+     * format a value base on type
      */
     formatValue: function (val, col, item) {
       /* safe type check */
@@ -433,234 +255,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css" scoped>
-
-  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
-  @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-
-  /* Rules for sizing the icon. */
-  .material-icons.md-18 { font-size: 18px; }
-  .material-icons.md-24 { font-size: 24px; }
-  .material-icons.md-36 { font-size: 36px; }
-  .material-icons.md-48 { font-size: 48px; }
-
-  .sym-icon-button {
-    border: 0;
-    background: transparent;
-    outline: 0;
-    cursor: pointer;
-    color: rgba(0,0,0,0.54)
-  }
-
-  .sym-icon-button[disabled] {
-    color: rgba(0,0,0,0.12)
-  }
-
-  .sym-icon-button-primary {
-    color: rgba(0,0,0,0.83)    
-  }
-
-  .sym-icon-button:focus {
-    outline: 0;
-  }
-
-  .extra-commands {
-    display: inline;
-  }
-
-  .unselectable {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-
-  .selected {
-    background-color: rgba(0, 0, 0, 0.06);
-  }
-
-  .sym-table {
-    font-family: 'Roboto', sans-serif;
-  }
-
-  .sub-header {
-    padding: 0 16px;
-  }
-
-  .sym-table > table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  td {
-    border: none;
-  }
-
-  td.begin {
-    width: 13px;
-    border-left: 3px solid rgba(0, 0, 0, 0);
-  }
-
-  td.begin-selected {
-    border-left: 3px solid #FFA300;
-  }
-
-  td.end {
-    width: 16px;
-  }
-
-  th {
-    font-weight: 400 !important;
-  }
-
-  .sym-table > table > thead > tr {
-    font-size: 12px;
-    font-weight: 400 !important;
-    color: rgba(0, 0, 0, 0.54);
-    height: 42px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);    
-  }
-
-  .sym-table > table > tbody > tr {
-    font-size: 13px;
-    font-weight: 400 !important;
-    color: rgba(0, 0, 0, 0.83);
-    height: 36px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);    
-  }
-
-  .sym-table > table > tbody > tr > td,
-  .sym-table > table > tfoot > tr > th,  
-  .sym-table > table > thead > tr > th {
-      padding: 0 8px 0 0;
-  }
-
-  .sym-table > table > tfoot > tr > th:first-child {
-      padding: 0 0 0 16px;
-  }
-
-  .sym-table.selectable > table > tbody > tr:hover {
-    cursor: pointer;
-  }
-
-  .sym-table.selectable > table > tbody > tr:hover td:first-child {
-    border-left: 3px solid #FFA300;
-  }
-
-  .sym-table-icons {
-    float: right;
-    padding-right: 16px;
-    display: flex; 
-    flex-flow: column; 
-    height: 100%; 
-    justify-content: space-around;
-    width: max-content
-  }
-
-  .card {
-    background-color: white;
-    border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  }
-
-  .sym-table-header {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-    height: 47px;
-    display: table;
-    overflow: hidden;
-    width: 100%;
-  }
-
-  .sym-table-header-content {
-    font-size: 20px;
-    color: rgba(0, 0, 0, 0.83);
-    display: table-cell;
-    vertical-align: middle;
-    padding-left: 16px;
-    outline: 0;
-    cursor: pointer;
-    width: 100%
-  }
-
-  .col-string, 
-  .head-string {
-    text-align: left;
-  }
-
-  .col-currency, 
-  .head-currency {
-    text-align: right;
-  }
-
-  .footer, 
-  .footer > th {
-    font-size: 14px;
-    font-weight: 600 !important;
-    color: rgba(0, 0, 0, 0.83);
-    height: 36px;
-  }
-
-  .footer-label {
-    text-align: left;
-    padding-left: 14px;
-  }
-
-  .icon-down {
-    transform: rotate(0deg);
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .icon-up {
-    transform: rotate(180deg);
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .slide-enter-active {
-    transition: all .3s ease-in-out;
-  }
-  
-  .slide-leave-active {
-    transition: all .8s ease-in-out;
-  }
-
-  .slide-enter, .slide-leave-to {
-    transform: translateY(-100px);
-  }
-
-  .ripple {
-    position: relative;
-    overflow: hidden;
-    transform: translate3d(0, 0, 0);
-  }
-  .ripple:after {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
-    background-repeat: no-repeat;
-    background-position: 50%;
-    transform: scale(10, 10);
-    opacity: 0;
-    transition: transform .5s, opacity 1s;
-  }
-  .ripple:active:after {
-    transform: scale(0, 0);
-    opacity: .2;
-    transition: 0s;
-  }
-
-  .no-data {  
-    text-align: center; 
-    color: rgba(0, 0, 0, .40);
-    margin: 0;
-    padding: 16px 0 16px 0;
-  }
-</style>

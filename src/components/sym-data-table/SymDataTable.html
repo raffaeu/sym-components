@@ -1,0 +1,150 @@
+<!-- main container -->
+<div class="sym-table" :class="{ 
+      card: isCard,
+      selectable: selectable
+    }">
+
+  <!-- table header -->
+  <div class="sym-table-header">
+
+    <!-- Title -->
+    <div class="sym-table-header-content" :class="{
+          ripple: collapsible
+        }" @click="toggleCollapse">{{ title }}</div>
+
+    <!-- Optional commands -->
+    <div class="sym-table-icons">
+
+      <!-- actions -->
+      <div name="table-commands">
+
+        <button v-for="(act, actIndex) in actions" :disabled="act.disabled" :key="actIndex" class="sym-icon-button" :class="{ 'ripple': !act.disabled }"
+          @click="actionTriggered(act)" :alt="act.tooltip" :title="act.tooltip">
+          <i class="material-icons md-24">{{ act.icon }}</i>
+        </button>
+
+        <!-- temporary slot for extra controls -->
+        <div class="extra-commands">
+          <slot name="extra-commands"></slot>
+        </div>
+
+        <!-- collapsible -->
+        <button v-if="collapsible" class="sym-icon-button sym-icon-button-primary ripple" @click="toggleCollapse">
+          <i class="material-icons md-24" :class="`icon-${isCollapsed ? 'down' : 'up'}`">expand_less</i>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- END table header -->
+
+  <!-- sub header -->
+  <div class="sub-header" v-if="!isCollapsed">
+    <slot name="sub-header">
+    </slot>
+  </div>
+  <!-- END sub header -->
+
+  <!-- data table -->
+  <transition name="none" v-if="items != null && items.length > 0">
+
+    <table class="unselectable" v-if="!isCollapsed">
+
+      <!-- header -->
+      <thead>
+        <tr>
+
+          <!-- selection -->
+          <th class="begin"></th>
+
+          <!-- headers definition -->
+          <th v-for="(col, colIndex) in columns" :key="colIndex" :class="`head-${col.type}`" :width="isNaN(col.width) ? 'auto' : col.width">
+            {{ col.label }}
+          </th>
+
+          <th class="end"></th>
+
+        </tr>
+      </thead>
+
+      <!-- optional footer MUST be before data for XHTML validation -->
+      <tfoot v-if="hasFooter">
+        <tr class="footer">
+
+          <!-- footer label -->
+          <th class="footer-label" colspan="3">{{ footerLabel }}</th>
+
+          <!-- totals, except first column -->
+          <th v-for="(col, colIndex) in totals" :key="colIndex" :class="`head-${col.type}`" :width="isNaN(col.width) ? 'auto' : col.width">
+            {{ formatValue(col.value, col, null) }}
+          </th>
+
+        </tr>
+      </tfoot>
+
+      <!-- data content -->
+      <tbody>
+        <tr @click="toggleRow(item)" v-for="(item, index) in items" :key="index" :class="{ selected: selectedRows.indexOf(item) > -1 }">
+
+          <!-- selection -->
+          <td class="begin" :class="{ 'begin-selected': selectedRows.indexOf(item) > -1 }"></td>
+
+
+          <!-- rows with column definition -->
+          <td v-for="(col, colIndex) in columns" :key="colIndex" :class="`col-${col.type}`">
+            {{ formatValue(item[col.name], col, item) }}
+          </td>
+
+          <td class="end"></td>
+
+        </tr>
+      </tbody>
+
+    </table>
+
+  </transition>
+  <!-- END data table -->
+
+  <!-- No item message -->
+  <p v-else class="no-data">
+    {{ noDataMessage }}
+  </p>
+  <!-- END No item message -->
+
+
+  <!-- pagination -->
+  <div class="sym-pagination" v-if="hasPagination">
+
+    <span>Rows per page</span>
+
+    <select>
+      <option>5</option>
+      <option>10</option>
+      <option>25</option>
+      <option>50</option>
+    </select>
+
+    <span>1-3 of 3</span>
+
+    <button class="sym-icon-button ripple">
+      <i class="material-icons md-24">navigate_before</i>
+    </button>
+
+    <button class="sym-icon-button ripple">
+      <i class="material-icons md-24">navigate_next</i>
+    </button>
+
+  </div>
+  <!-- END pagination -->
+
+  <!-- bottom commands -->
+  <div class="bottom-commands">
+    <slot name="bottom-commands">
+      <!-- Optional slot for bottom buttons and such -->
+    </slot>
+  </div>
+  <!-- END bottom commands -->
+
+</div>
