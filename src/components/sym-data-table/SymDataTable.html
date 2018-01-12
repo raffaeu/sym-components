@@ -1,0 +1,169 @@
+<!-- main container -->
+<div class="sym-table" :class="{ 
+      'sym-card': isCard,
+      'sym-selectable': selectable
+    }">
+
+  <!-- table header -->
+  <div class="sym-table-header">
+
+    <!-- Title -->
+    <div class="sym-table-header-content" :class="{
+          'sym-ripple': collapsible
+        }" @click="toggleCollapse">{{ title }}</div>
+
+    <!-- Optional commands -->
+    <div class="sym-table-icons">
+
+      <!-- actions -->
+      <div name="table-commands">
+
+        <button v-for="(act, actIndex) in actions" :disabled="act.disabled" :key="actIndex" class="sym-icon-button" :class="{ 'sym-ripple': !act.disabled }"
+          @click="actionTriggered(act)" :alt="act.tooltip" :title="act.tooltip">
+          <i class="material-icons md-24">{{ act.icon }}</i>
+        </button>
+
+        <!-- temporary slot for extra controls -->
+        <div class="sym-extra-commands">
+          <slot name="extra-commands"></slot>
+        </div>
+
+        <!-- collapsible -->
+        <button v-if="collapsible" class="sym-icon-button sym-icon-button-primary sym-ripple" @click="toggleCollapse">
+          <i class="material-icons md-24" :class="`icon-${isCollapsed ? 'down' : 'up'}`">expand_less</i>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- END table header -->
+
+  <!-- sub header -->
+  <div class="sym-sub-header" v-if="!isCollapsed">
+    <slot name="sub-header">
+    </slot>
+  </div>
+  <!-- END sub header -->
+
+  <!-- data table -->
+  <transition name="none" v-if="items != null && items.length > 0">
+
+    <table class="sym-unselectable" v-if="!isCollapsed">
+
+      <!-- header -->
+      <thead>
+        <tr>
+
+          <!-- selection -->
+          <th class="sym-row-begin"></th>
+
+          <!-- headers definition -->
+          <th v-for="(col, colIndex) in columns" :key="colIndex" :class="`head-${col.type}`" :width="isNaN(col.width) ? 'auto' : col.width">
+            {{ col.label }}
+          </th>
+
+          <th class="end"></th>
+
+        </tr>
+      </thead>
+
+      <!-- optional footer MUST be before data for XHTML validation -->
+      <tfoot v-if="hasFooter">
+        <tr class="sym-table-footer">
+
+          <!-- footer label -->
+          <!-- <th class="footer-label" colspan="3">{{ footerLabel }}</th> -->
+          <th class="sym-row-begin"></th>
+
+          <!-- totals, except first column -->
+          <th v-for="(col, colIndex) in totals" :key="colIndex" :class="`head-${col.type}`">
+            {{ formatValue(col.value, col, null) }}
+          </th>
+
+        </tr>
+      </tfoot>
+
+      <!-- data content -->
+      <tbody>
+        <tr @click="toggleRow(item)" v-for="(item, index) in items" :key="index" :class="{ 'sym-row-selected': selectedRows.indexOf(item) > -1 }">
+
+          <!-- selection -->
+          <td :class="{ 
+              'sym-row-begin': selectedRows.indexOf(item) < 0,
+              'sym-row-begin-selected': selectedRows.indexOf(item) > -1 }"></td>
+
+
+          <!-- rows with column definition -->
+          <td v-for="(col, colIndex) in columns" :key="colIndex" :class="`col-${col.type}`">
+            {{ formatValue(item[col.name], col, item) }}
+          </td>
+
+          <td class="end"></td>
+
+        </tr>
+      </tbody>
+
+    </table>
+
+  </transition>
+  <!-- END data table -->
+
+  <!-- No item message -->
+  <div v-else class="sym-table-no-data">
+    {{ noDataMessage }}
+  </div>
+  <!-- END No item message -->
+
+
+  <!-- pagination -->
+  <div class="sym-pagination" v-if="hasPagination">
+
+    <div class="sym-pagination-navigation">
+
+        <button 
+            :disabled="backDisabled"
+            :class="{ 'sym-ripple': !backDisabled }"
+            class="sym-icon-button"
+            @click="pagerTriggered(currentPage - 1)">
+          <i class="material-icons md-24">navigate_before</i>
+        </button>
+
+        <!-- <span>{{ currentPage }}</span> -->
+
+        <button
+            :disabled="forwardDisabled" 
+            :class="{ 'sym-ripple': !forwardDisabled }"
+            class="sym-icon-button"
+            @click="pagerTriggered(currentPage + 1)">
+          <i class="material-icons md-24">navigate_next</i>
+        </button>
+
+    </div>
+
+
+    <div class="sym-pagination-icons">
+
+      <span>Rows per page</span>
+
+      <span>{{ itemsPerPage }}</span>
+
+      <span>Records</span>
+
+      <span>{{ ((currentPage - 1) * itemsPerPage) + 1 }} - {{ ((currentPage - 1) * itemsPerPage) + items.length }} of {{ totalItems }}</span>
+
+    </div>
+
+  </div>
+  <!-- END pagination -->
+
+  <!-- bottom commands -->
+  <div class="bottom-commands">
+    <slot name="bottom-commands">
+      <!-- Optional slot for bottom buttons and such -->
+    </slot>
+  </div>
+  <!-- END bottom commands -->
+
+</div>

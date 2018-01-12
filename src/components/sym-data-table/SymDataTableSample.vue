@@ -19,8 +19,24 @@
       :collapsed="false"
       :items="items"      
       :columns="columns"
-      no-data-message="All out!"
+      no-data-message="No Data available"
       @collapse-toggle="collapseToggled" />    
+
+    <blockquote>
+      A simple data table without data
+    </blockquote>
+
+    <sym-data-table
+      class="sym-data-table"
+      title="Collapsible"
+      :multi-select="true"
+      :is-card="true"
+      :collapsible="true"
+      :collapsed="false"
+      :items="no_data"      
+      :columns="columns"
+      no-data-message="No Data available"
+      @collapse-toggle="collapseToggled" /> 
 
     <h3>Simple table collapsed</h3>    
 
@@ -124,7 +140,30 @@
           <p>Some <i>extra text</i></p>
         </div>
     </sym-data-table>    
-      
+
+    <h3>Simple table with pagination</h3>
+
+    <blockquote>
+      A simple data table with pagination
+    </blockquote>
+
+    <sym-data-table
+      class="sym-data-table"
+      title="With Sub Header"
+      :multi-select="false"
+      :is-card="true"
+      :collapsible="true"
+      :collapsed="false"
+      :items="items"      
+      :columns="columns"
+      no-data-message="All out!"
+      @collapse-toggle="collapseToggled"
+      :has-pagination="true"
+      :items-per-page="5"
+      :total-items="25"
+      :current-page="5">
+    </sym-data-table>  
+
   </div>
 
 </template>
@@ -167,6 +206,19 @@ export default {
   data () {
     return {
       selectedRows: [],
+      no_data: [],
+      pagItems: [
+        {
+          'id': 1,
+          'first_name': 'Jeanette',
+          'last_name': 'Penddreth',
+          'email': 'jpenddreth0@census.gov',
+          'gender': 'Female',
+          'ip_address': '26.58.193.2',
+          'salary': 1250.00,
+          'hour_fee': 132.00
+        }
+      ],
       items: [
         {
           'id': 1,
@@ -204,6 +256,15 @@ export default {
           'ip_address': '67.76.188.26',
           'salary': 1250.00,
           'hour_fee': 210.00
+        }, {
+          'id': 5,
+          'first_name': 'Smenth',
+          'last_name': 'Ryu',
+          'email': 'smenth@vk.com',
+          'gender': 'Hybrid',
+          'ip_address': '11.76.325.26',
+          'salary': 3250.00,
+          'hour_fee': 230.00
         }
       ],
       columns: [
