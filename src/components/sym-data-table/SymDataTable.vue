@@ -3,6 +3,9 @@
 <style src="./SymDataTable.css" scoped>
 </style>
 <script>
+
+import Vue from 'vue'
+
 /**
  * SymDataTable (usage sym-data-table)
  * A Data Table component using Material Design
@@ -30,6 +33,9 @@ export default {
   mounted () {
     this.isCollapsed = this.collapsed
     this.evaluatePager()
+    this.columns.forEach(element => {
+      Vue.set(element, 'sorted', false)
+    })
   },
 
   computed: {
@@ -189,6 +195,13 @@ export default {
       type: String,
       required: false,
       default: 'No data'
+    },
+
+    /* indicates if the table can be sorted */
+    sortable: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
 
@@ -307,6 +320,31 @@ export default {
         return `${parseFloat(val).toFixed(2)}`
       }
       return val
+    },
+
+    /**
+     * toggle or activate the sorting
+     */
+    toggleSort: function (col) {
+      if (!col.sortable) {
+        return
+      }
+
+      // reset sorted columns
+      this.columns.forEach(element => {
+        if (element !== col && element.sortable) {
+          Vue.set(element, 'sorted', false)
+        }
+      })
+
+      if (!col.sorted) {
+        Vue.set(col, 'sorted', true)
+        Vue.set(col, 'sort_order', 'ASC')
+      } else {
+        Vue.set(col, 'sort_order', col.sort_order === 'DESC' ? 'ASC' : 'DESC')
+      }
+
+      this.$emit('column-sorted', { col: col.name, sort_order: col.sort_order })
     }
   }
 }

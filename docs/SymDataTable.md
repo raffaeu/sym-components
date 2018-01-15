@@ -83,6 +83,7 @@ Then you can start to use the declarative approach to create a new instance of i
 | **has-pagination**   | `Boolean`   | `false`   | `false`   | When true, it display a material design pagination control on the bottom right of the table   |
 | **clear-selection**   | `Boolean`   | `false`   | `false`   | When set to true the selected items will be cleared   |
 | **no-data-message**   | `String`   | `false`   | `No Data`   | The message to show if the table has no items   |
+| **sortable**   | `Boolean`   | `false`   | `false`   | Enable the sort option of the Data-Table   |
 
 ### Columns Configuration
 
@@ -95,7 +96,8 @@ Each Column of the `sym-data-table` can be configured according to the following
     label: 'Total Amount',
     width: 150,
     hasTotal: true,
-    format: (val, item) => {  }
+    format: (val, item) => {  },
+    sortable: true
 }
 ```
 
@@ -109,6 +111,7 @@ And these are the available options:
 | **width**   | `String`-`Int32`  | `true`   | The width in pixels, use `flex` for auto-expand   |
 | **hasTotal**   | `Boolean`  | `false`   | When `true` and `hasFooter` is also `true`, it will calculate a total fr the column using `float(2)`   |
 | **format**   | `Function`  | `false`   | Provides a function with two parameters `val` which is the current value and *optional* `item` which contains the entire row. **It must return a formatted value**  |
+| **sortable**   | `Boolean`  | `false`   | Let the column be sortable  |
 
 > The function `format` returns two parameters:
 > - `val` which contains the raw value of the column
@@ -220,4 +223,13 @@ this.$emit('action-triggered', [an action [name, icon, enabled]]])
 
 ```javascript
 this.$emit('page-changed', [newPage])
+```
+
+### column-sorted
+
+> It is triggered every time the a column is sorted
+#### Implementation
+
+```javascript
+this.$emit('column-sorted', [col, sort_order])
 ```

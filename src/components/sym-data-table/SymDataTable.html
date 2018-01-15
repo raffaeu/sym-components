@@ -60,7 +60,16 @@
           <th class="sym-row-begin"></th>
 
           <!-- headers definition -->
-          <th v-for="(col, colIndex) in columns" :key="colIndex" :class="`head-${col.type}`" :width="isNaN(col.width) ? 'auto' : col.width">
+          <th 
+            v-for="(col, colIndex) in columns" 
+            :key="colIndex" 
+            :class="`head-${col.type} ${sortable && col.sortable ? 'sym-head-selectable sym-ripple' : 'sym-unselectable'} ${sortable && col.sorted ? 'sym-head-sorted' : ''}`" 
+            :width="isNaN(col.width) ? 'auto' : col.width"
+            @click="toggleSort(col)">
+              <i 
+                v-if="sortable && col.sortable && col.sorted" 
+                class="material-icons md-14"
+                :class="`icon-${col.sort_order === 'DESC' ? 'down' : 'up'} ${sorted ? 'sym-head-sorted' : ''}`">arrow_upward</i>
             {{ col.label }}
           </th>
 

@@ -164,6 +164,30 @@
       :current-page="5">
     </sym-data-table>  
 
+    <h3>Simple table with Order</h3>
+
+    <blockquote>
+      A simple data table with order
+    </blockquote>
+
+    <sym-data-table
+      class="sym-data-table"
+      title="With Sorted columns"
+      :multi-select="false"
+      :is-card="true"
+      :collapsible="true"
+      :collapsed="false"
+      :items="items"      
+      :columns="columns"
+      no-data-message="All out!"
+      @collapse-toggle="collapseToggled"
+      :has-pagination="true"
+      :items-per-page="5"
+      :total-items="25"
+      :current-page="5" 
+      :sortable="true">
+    </sym-data-table>  
+
   </div>
 
 </template>
@@ -278,13 +302,15 @@ export default {
           name: 'first_name',
           type: 'string',
           width: 150,
-          label: 'First Name'
+          label: 'First Name',
+          sortable: true
         },
         {
           name: 'last_name',
           type: 'string',
           width: 150,
-          label: 'Last Name'
+          label: 'Last Name',
+          sortable: true
         },
         {
           name: 'email',
