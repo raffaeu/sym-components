@@ -36,6 +36,19 @@
   border-left: 4px solid #FFA300;
 }
 
+.sym-head-selectable {
+  cursor: pointer;
+}
+
+.sym-head-sorted {
+  color: rgba(0, 0, 0, .87);  
+}
+
+.sym-head-selectable:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
 .sym-row-selected {
   background-color: rgba(0, 0, 0, 0.06);
 }
@@ -58,6 +71,9 @@
 /*==============================================================
     2. Icons and Buttons
 ==============================================================*/
+.material-icons.md-14 {
+  font-size: 14px;
+}
 
 .material-icons.md-18 {
   font-size: 18px;
@@ -96,14 +112,15 @@
 }
 
 .icon-down {
-    transform: rotate(0deg);
-    transition: transform 0.3s ease-in-out;
-  }
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
+}
   
-  .icon-up {
-    transform: rotate(180deg);
-    transition: transform 0.3s ease-in-out;
-  }
+.icon-up {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease-in-out;
+}
+
 /*==============================================================
     3. Table layout
 ==============================================================*/
