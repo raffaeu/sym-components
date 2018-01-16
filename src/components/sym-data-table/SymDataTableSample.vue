@@ -303,7 +303,9 @@ export default {
           type: 'string',
           width: 150,
           label: 'First Name',
-          sortable: true
+          sortable: true,
+          sorted: true,
+          sort_order: 'ASC'
         },
         {
           name: 'last_name',

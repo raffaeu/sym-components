@@ -33,9 +33,6 @@ export default {
   mounted () {
     this.isCollapsed = this.collapsed
     this.evaluatePager()
-    this.columns.forEach(element => {
-      Vue.set(element, 'sorted', false)
-    })
   },
 
   computed: {
@@ -223,16 +220,19 @@ export default {
      * Re-evaluate the pager commands
      */
     evaluatePager: function () {
-      console.log('items watch triggered')
-      // if EOF
-      if ((this.itemsPerPage * this.items.length) >= this.totalItems) {
-        this.forwardDisabled = true
+      const from = ((this.currentPage - 1) * this.itemsPerPage) + 1
+      const to = ((this.currentPage - 1) * this.itemsPerPage) + this.items.length
+      // if BOF
+      if (from <= 1) {
+        this.backDisabled = true
+      } else {
         this.backDisabled = false
       }
 
-      // if BOF
-      if ((((this.currentPage - 1) * this.itemsPerPage) + 1) === 1) {
-        this.backDisabled = true
+      // if EOF
+      if (to === this.totalItems) {
+        this.forwardDisabled = true
+      } else {
         this.forwardDisabled = false
       }
     },
@@ -326,7 +326,7 @@ export default {
      * toggle or activate the sorting
      */
     toggleSort: function (col) {
-      if (!col.sortable) {
+      if (!this.sortable || !col.sortable) {
         return
       }
 

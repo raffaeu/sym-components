@@ -97,7 +97,9 @@ Each Column of the `sym-data-table` can be configured according to the following
     width: 150,
     hasTotal: true,
     format: (val, item) => {  },
-    sortable: true
+    sortable: true,
+    sorted: true,
+    sort_order: 'ASC'
 }
 ```
 
@@ -112,6 +114,8 @@ And these are the available options:
 | **hasTotal**   | `Boolean`  | `false`   | When `true` and `hasFooter` is also `true`, it will calculate a total fr the column using `float(2)`   |
 | **format**   | `Function`  | `false`   | Provides a function with two parameters `val` which is the current value and *optional* `item` which contains the entire row. **It must return a formatted value**  |
 | **sortable**   | `Boolean`  | `false`   | Let the column be sortable  |
+| **sorted**   | `Boolean`  | `false`   | Default sort the column when set to true  |
+| **sorted_order**   | `String`  | `false`   | Possible values are ```ASC``` or ```DESC```, it set the default sort order  |
 
 > The function `format` returns two parameters:
 > - `val` which contains the raw value of the column
