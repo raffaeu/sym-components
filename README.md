@@ -6,6 +6,10 @@ Current stable version:
 
 [![npm version](https://badge.fury.io/js/sym-components.svg)](https://badge.fury.io/js/sym-components)
 
+[![Travis dev](https://travis-ci.org/raffaeu/sym-components.svg?branch=dev)](https://travis-ci.org/raffaeu/sym-components.svg?branch=dev)
+
+[![Travis master](https://travis-ci.org/raffaeu/sym-components.svg?branch=master)](https://travis-ci.org/raffaeu/sym-components.svg?branch=master)
+
 ## Components
 
 You can install the components using `NPM` as following:
