@@ -63,13 +63,13 @@
           <th 
             v-for="(col, colIndex) in columns" 
             :key="colIndex" 
-            :class="`head-${col.type} ${sortable && col.sortable ? 'sym-head-selectable sym-ripple' : 'sym-unselectable'} ${sortable && col.sorted ? 'sym-head-sorted' : ''}`" 
+            :class="`head-${col.type} ${sortable && col.sortable ? 'sym-head-selectable sym-ripple' : 'sym-unselectable'} ${col.sorted ? 'sym-head-sorted' : ''}`" 
             :width="isNaN(col.width) ? 'auto' : col.width"
             @click="toggleSort(col)">
               <i 
-                v-if="sortable && col.sortable && col.sorted" 
+                v-if="col.sorted" 
                 class="material-icons md-14"
-                :class="`icon-${col.sort_order === 'DESC' ? 'down' : 'up'} ${sorted ? 'sym-head-sorted' : ''}`">arrow_upward</i>
+                :class="`icon-${col.sort_order === 'DESC' ? 'down' : 'up'} ${col.sorted ? 'sym-head-sorted' : ''}`">arrow_upward</i>
             {{ col.label }}
           </th>
 
