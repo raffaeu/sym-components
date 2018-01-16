@@ -6,9 +6,7 @@ Current stable version:
 
 [![npm version](https://badge.fury.io/js/sym-components.svg)](https://badge.fury.io/js/sym-components)
 
-[![Travis dev](https://travis-ci.org/raffaeu/sym-components.svg?branch=dev)](https://travis-ci.org/raffaeu/sym-components.svg?branch=dev)
-
-[![Travis master](https://travis-ci.org/raffaeu/sym-components.svg?branch=master)](https://travis-ci.org/raffaeu/sym-components.svg?branch=master)
+[![CircleCI](https://circleci.com/gh/raffaeu/sym-components/tree/master.svg?style=svg)](https://circleci.com/gh/raffaeu/sym-components/tree/master)
 
 ## Components
 
