@@ -1,6 +1,6 @@
 {
   "name": "sym-components",
-  "version": "0.2.16",
+  "version": "0.2.17",
   "description": "Vue.js Components Library implementing Material Design",
   "author": "Raffaele Garofalo <raffaele.garofalo@symbioticsgroup.com>",
   "main": "lib/index.js",
@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/raffaeu/sym-components#readme",
   "peerDependencies": {
-    "vue": "2.5.11"
+    "vue": ">= 2.5.11"
   },
   "dependencies": {
     "vue-router": "^3.0.1"
