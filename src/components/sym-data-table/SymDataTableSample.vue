@@ -188,6 +188,24 @@
       :sortable="true">
     </sym-data-table>  
 
+    <h3>Simple table with High</h3>
+
+    <blockquote>
+      A simple data table with Flexbox
+    </blockquote>
+
+    <sym-data-table
+      class="sym-data-table sym-fixed"
+      title="With Sorted columns"
+      :multi-select="false"
+      :is-card="true"
+      :collapsible="false"
+      :collapsed="false"
+      :items="items"      
+      :columns="columns"
+      :has-pagination="true">
+    </sym-data-table>  
+
   </div>
 
 </template>
@@ -394,6 +412,11 @@ export default {
 <style>
   .sym-data-table {
     margin: 16px 0;
+  }
+
+  .sym-fixed {
+    min-height: 350px;
+    height: 350px;
   }
 </style>
 
