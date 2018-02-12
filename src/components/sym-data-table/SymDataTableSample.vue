@@ -188,6 +188,40 @@
       :sortable="true">
     </sym-data-table>  
 
+    <blockquote>
+      A simple data table with a detail view
+    </blockquote>
+
+    <sym-data-table
+      class="sym-data-table"
+      title="With detail view"
+      :multi-select="false"
+      :is-card="true"
+      :collapsible="true"
+      :collapsed="false"
+      :items="items"      
+      :columns="columns"
+      no-data-message="All out!"
+      @collapse-toggle="collapseToggled"
+      :has-pagination="true"
+      :items-per-page="5"
+      :total-items="25"
+      :current-page="5"      
+      :sortable="true"
+      @selected-rows-changed="detailSelected">
+      <div slot="detail" v-if="detailSelectedRows && detailSelectedRows.length > 0">
+        <form>
+          <div>
+            <label>First Name</label> <span>{{detailSelectedRows[0].first_name}}</span>
+          </div>
+
+          <div>
+            <label>Last Name</label> <span>{{detailSelectedRows[0].last_name}}</span>
+          </div>
+        </form>
+      </div>      
+    </sym-data-table>  
+
   </div>
 
 </template>
@@ -224,12 +258,16 @@ export default {
     },
     collapseToggled: function (isCollapsed) {
       console.log(`Table collapsed toggled (collapsed = ${isCollapsed})`)
+    },
+    detailSelected: function (selectedRows) {
+      Vue.set(this, 'detailSelectedRows', selectedRows)
     }
   },
 
   data () {
     return {
       selectedRows: [],
+      detailSelectedRows: [],
       no_data: [],
       pagItems: [
         {
@@ -394,6 +432,15 @@ export default {
 <style>
   .sym-data-table {
     margin: 16px 0;
+  }
+
+  .detail label {
+    padding-right: 16px;    
+    font-weight: bold;
+  }
+  
+  .detail div {
+    margin: 8px 0 8px 0;
   }
 </style>
 

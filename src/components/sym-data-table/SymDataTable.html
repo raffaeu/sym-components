@@ -54,6 +54,13 @@
 
       <!-- header -->
       <thead>
+        <!-- Slot for extra detail view !-->
+        <tr v-if="$slots.detail">            
+            <th :colspan="columns.length + 2" class="head-string sym-unselectable detail">
+              <slot name="detail" />
+            </th>
+        </tr>
+
         <tr>
 
           <!-- selection -->
@@ -75,7 +82,7 @@
 
           <th class="end"></th>
 
-        </tr>
+        </tr>        
       </thead>
 
       <!-- optional footer MUST be before data for XHTML validation -->
