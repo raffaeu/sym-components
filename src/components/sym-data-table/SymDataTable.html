@@ -103,12 +103,13 @@
 
       <!-- data content -->
       <tbody>
-        <tr @click="toggleRow(item)" v-for="(item, index) in items" :key="index" :class="{ 'sym-row-selected': selectedRows.indexOf(item) > -1 }">
+        <tr @click="toggleRow(item)" v-for="(item, index) in items" :key="index" :class="styleRow(item)">
 
           <!-- selection -->
-          <td :class="{ 
-              'sym-row-begin': selectedRows.indexOf(item) < 0,
-              'sym-row-begin-selected': selectedRows.indexOf(item) > -1 }"></td>
+          <td :class="{
+            'sym-row-begin': selectedRows.indexOf(item) < 0,
+            'sym-row-begin-selected': selectedRows.indexOf(item) > -1
+          }"></td>
 
 
           <!-- rows with column definition -->

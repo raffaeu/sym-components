@@ -222,6 +222,23 @@
       </div>      
     </sym-data-table>  
 
+    <sym-data-table
+      class="sym-data-table"
+      title="With row styling"
+      :multi-select="false"
+      :is-card="true"
+      :collapsible="true"
+      :collapsed="false"
+      :items="items"      
+      :columns="columns"
+      no-data-message="All out!"
+      @collapse-toggle="collapseToggled"
+      :has-pagination="true"
+      :items-per-page="5"
+      :total-items="25"
+      :current-page="5"      
+      :sortable="true"
+      :row-styler="styleRow" />
   </div>
 
 </template>
@@ -261,6 +278,12 @@ export default {
     },
     detailSelected: function (selectedRows) {
       Vue.set(this, 'detailSelectedRows', selectedRows)
+    },
+    /* style rows with '.gov' emails */
+    styleRow: function (item) {
+      return {
+        'is-gov': item.email.endsWith('.gov')
+      }
     }
   },
 
@@ -441,6 +464,10 @@ export default {
   
   .detail div {
     margin: 8px 0 8px 0;
+  }
+
+  .is-gov td {
+    color: rgb(103, 103, 216);
   }
 </style>
 
