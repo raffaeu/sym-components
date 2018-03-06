@@ -264,7 +264,7 @@ export default {
      * Triggered when a TR is selected/unselected
      * bound to a single click/tap event
      */
-    toggleRow: function (item) {
+    toggleRow: function (item, event) {
       /* if select is disabled, do nothing */
       if (!this.selectable) {
         return
@@ -284,7 +284,7 @@ export default {
       }
 
       /* notify */
-      this.$emit('selected-rows-changed', this.selectedRows)
+      this.$emit('selected-rows-changed', { rows: this.selectedRows, event: event })
     },
 
     /**

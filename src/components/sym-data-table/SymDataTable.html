@@ -7,6 +7,9 @@
   <!-- table header -->
   <div class="sym-table-header">
 
+    <!-- pre-title -->
+    <slot name="pre-title"></slot>
+
     <!-- Title -->
     <div class="sym-table-header-content" :class="{
           'sym-ripple': collapsible
@@ -103,7 +106,7 @@
 
       <!-- data content -->
       <tbody>
-        <tr @click="toggleRow(item)" v-for="(item, index) in items" :key="index" :class="styleRow(item)">
+        <tr @click="toggleRow(item, $event)" v-for="(item, index) in items" :key="index" :class="styleRow(item)">
 
           <!-- selection -->
           <td :class="{
