@@ -7,6 +7,9 @@
   <!-- table header -->
   <div class="sym-table-header">
 
+    <!-- pre-title -->
+    <slot name="pre-title"></slot>
+
     <!-- Title -->
     <div class="sym-table-header-content" :class="{
           'sym-ripple': collapsible
@@ -16,7 +19,7 @@
     <div class="sym-table-icons">
 
       <!-- actions -->
-      <div name="table-commands">
+      <div name="table-commands" class="sym-table-commands">
 
         <button v-for="(act, actIndex) in actions" :disabled="act.disabled" :key="actIndex" class="sym-icon-button" :class="{ 'sym-ripple': !act.disabled }"
           @click="actionTriggered(act)" :alt="act.tooltip" :title="act.tooltip">
@@ -54,6 +57,13 @@
 
       <!-- header -->
       <thead>
+        <!-- Slot for extra detail view !-->
+        <tr v-if="$slots.detail">            
+            <th :colspan="columns.length + 2" class="head-string sym-unselectable detail">
+              <slot name="detail" />
+            </th>
+        </tr>
+
         <tr>
 
           <!-- selection -->
@@ -75,7 +85,7 @@
 
           <th class="end"></th>
 
-        </tr>
+        </tr>        
       </thead>
 
       <!-- optional footer MUST be before data for XHTML validation -->
@@ -96,12 +106,13 @@
 
       <!-- data content -->
       <tbody>
-        <tr @click="toggleRow(item)" v-for="(item, index) in items" :key="index" :class="{ 'sym-row-selected': selectedRows.indexOf(item) > -1 }">
+        <tr @click="toggleRow(item, $event)" v-for="(item, index) in items" :key="index" :class="styleRow(item)">
 
           <!-- selection -->
-          <td :class="{ 
-              'sym-row-begin': selectedRows.indexOf(item) < 0,
-              'sym-row-begin-selected': selectedRows.indexOf(item) > -1 }"></td>
+          <td :class="{
+            'sym-row-begin': selectedRows.indexOf(item) < 0,
+            'sym-row-begin-selected': selectedRows.indexOf(item) > -1
+          }"></td>
 
 
           <!-- rows with column definition -->

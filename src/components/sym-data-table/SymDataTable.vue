@@ -199,6 +199,15 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+
+    /* optional function that styles a row */
+    rowStyler: {
+      type: Function,
+      required: false,
+      default: function (item) {
+        return {}
+      }
     }
   },
 
@@ -255,7 +264,7 @@ export default {
      * Triggered when a TR is selected/unselected
      * bound to a single click/tap event
      */
-    toggleRow: function (item) {
+    toggleRow: function (item, event) {
       /* if select is disabled, do nothing */
       if (!this.selectable) {
         return
@@ -275,7 +284,7 @@ export default {
       }
 
       /* notify */
-      this.$emit('selected-rows-changed', this.selectedRows)
+      this.$emit('selected-rows-changed', { rows: this.selectedRows, event: event })
     },
 
     /**
@@ -345,6 +354,15 @@ export default {
       }
 
       this.$emit('column-sorted', { col: col.name, sort_order: col.sort_order })
+    },
+
+    /*
+    * sets the row's classes for styling
+    */
+    styleRow: function (item) {
+      const userStyles = this.$props.rowStyler(item)
+
+      return Object.assign({ 'sym-row-selected': this.selectedRows.indexOf(item) > -1 }, userStyles)
     }
   }
 }

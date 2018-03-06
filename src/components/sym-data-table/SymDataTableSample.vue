@@ -188,24 +188,57 @@
       :sortable="true">
     </sym-data-table>  
 
-    <h3>Simple table with High</h3>
-
     <blockquote>
-      A simple data table with Flexbox
+      A simple data table with a detail view
     </blockquote>
 
     <sym-data-table
-      class="sym-data-table sym-fixed"
-      title="With Sorted columns"
+      class="sym-data-table"
+      title="With detail view"
       :multi-select="false"
       :is-card="true"
-      :collapsible="false"
+      :collapsible="true"
       :collapsed="false"
       :items="items"      
       :columns="columns"
-      :has-pagination="true">
+      no-data-message="All out!"
+      @collapse-toggle="collapseToggled"
+      :has-pagination="true"
+      :items-per-page="5"
+      :total-items="25"
+      :current-page="5"      
+      :sortable="true"
+      @selected-rows-changed="detailSelected">
+      <div slot="detail" v-if="detailSelectedRows && detailSelectedRows.length > 0">
+        <form>
+          <div>
+            <label>First Name</label> <span>{{detailSelectedRows[0].first_name}}</span>
+          </div>
+
+          <div>
+            <label>Last Name</label> <span>{{detailSelectedRows[0].last_name}}</span>
+          </div>
+        </form>
+      </div>      
     </sym-data-table>  
 
+    <sym-data-table
+      class="sym-data-table"
+      title="With row styling"
+      :multi-select="false"
+      :is-card="true"
+      :collapsible="true"
+      :collapsed="false"
+      :items="items"      
+      :columns="columns"
+      no-data-message="All out!"
+      @collapse-toggle="collapseToggled"
+      :has-pagination="true"
+      :items-per-page="5"
+      :total-items="25"
+      :current-page="5"      
+      :sortable="true"
+      :row-styler="styleRow" />
   </div>
 
 </template>
@@ -242,12 +275,22 @@ export default {
     },
     collapseToggled: function (isCollapsed) {
       console.log(`Table collapsed toggled (collapsed = ${isCollapsed})`)
+    },
+    detailSelected: function (selectedRows) {
+      Vue.set(this, 'detailSelectedRows', selectedRows)
+    },
+    /* style rows with '.gov' emails */
+    styleRow: function (item) {
+      return {
+        'is-gov': item.email.endsWith('.gov')
+      }
     }
   },
 
   data () {
     return {
       selectedRows: [],
+      detailSelectedRows: [],
       no_data: [],
       pagItems: [
         {
@@ -414,9 +457,17 @@ export default {
     margin: 16px 0;
   }
 
-  .sym-fixed {
-    min-height: 350px;
-    height: 350px;
+  .detail label {
+    padding-right: 16px;    
+    font-weight: bold;
+  }
+  
+  .detail div {
+    margin: 8px 0 8px 0;
+  }
+
+  .is-gov td {
+    color: rgb(103, 103, 216);
   }
 </style>
 

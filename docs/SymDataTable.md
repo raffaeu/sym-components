@@ -62,6 +62,16 @@ Then you can start to use the declarative approach to create a new instance of i
 </sym-data-table>
 ```
 
+## Slots
+
+`sym-data-table` has slots available. 
+
+- The slot `pre-title` is used to position one or more components before the content of the Title
+- The slot `extra-commands` is used to position one or more components after the table actions
+- The slot `sub-header` is used to position an extra element after the table title
+- The slot `detail` is used to have an extra detail section before the table headers
+- The slot `bottom-commands` is used to add command on the footer of the table, after the pagination
+
 ## Properties
 
 `sym-data-table` provide a set of properties that can be used to configure it at declaration time but also during run-time.
@@ -207,8 +217,11 @@ It is also triggered when a row is de-selected.
 #### Implementation
 
 ```javascript
-this.$emit('selected-rows-changed', [array of selected rows])
+this.$emit('selected-rows-changed', rows: [array of selected rows], event: [the mouse event])
 ```
+
+**Breaking change since version 0.2.26**
+
 ### action-triggered
 
 > It is triggered every time an action in the action bar is triggered.
