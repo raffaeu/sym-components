@@ -1,6 +1,6 @@
 {
   "name": "sym-components",
-  "version": "0.2.26",
+  "version": "0.2.29",
   "description": "Vue.js Components Library implementing Material Design",
   "author": "Raffaele Garofalo <raffaele.garofalo@symbioticsgroup.com>",
   "main": "lib/index.js",
@@ -91,7 +91,8 @@
     "url-loader": "^0.5.8",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
-    "vue-template-compiler": "2.5.11",
+    "vue-template-compiler": "^2.5.11",
+    "vue-test-utils": "^1.0.0-beta.11",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",

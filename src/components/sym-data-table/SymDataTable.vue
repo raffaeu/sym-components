@@ -65,6 +65,24 @@ export default {
         }
         return totalsRow
       }
+    },
+    groups: function () {
+      const result = []
+      let currentGroup = null
+      for (let item of this.items) {
+        const currentCategory = item[this.groupBy]
+        currentGroup = currentGroup || {items: [], category: currentCategory}
+        if (currentGroup.category === currentCategory) {
+          currentGroup.items.push(item)
+        } else {
+          currentGroup.header = this.groupHeaderFormatter(currentGroup, this.groupBy)
+          result.push(currentGroup)
+          currentGroup = {items: [item], category: currentCategory}
+        }
+      }
+      currentGroup.header = this.groupHeaderFormatter(currentGroup, this.groupBy)
+      result.push(currentGroup)
+      return result
     }
   },
 
@@ -207,6 +225,24 @@ export default {
       required: false,
       default: function (item) {
         return {}
+      }
+    },
+
+    /* indicates field used to group rows */
+    groupBy: {
+      type: String,
+      required: false,
+      default: ''
+    },
+
+    groupHeaderFormatter: {
+      type: Function,
+      required: false,
+      default: function (group) {
+        if (!group) {
+          return ''
+        }
+        return group.category
       }
     }
   },

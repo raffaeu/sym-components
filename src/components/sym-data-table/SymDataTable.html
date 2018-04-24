@@ -105,8 +105,14 @@
       </tfoot>
 
       <!-- data content -->
-      <tbody>
-        <tr @click="toggleRow(item, $event)" v-for="(item, index) in items" :key="index" :class="styleRow(item)">
+      <tbody v-for="group in groups" :key="group.category">        
+        <tr v-if="group.header">
+          <td class="sym-row-begin"></td>
+          <td :colspan="columns.length">{{ group.header }}</td>
+          <td class="end"></td>              
+        </tr>
+
+        <tr @click="toggleRow(item, $event)" v-for="(item, index) in group.items" :key="index" :class="styleRow(item)">            
 
           <!-- selection -->
           <td :class="{

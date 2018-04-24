@@ -220,7 +220,7 @@
           </div>
         </form>
       </div>      
-    </sym-data-table>  
+    </sym-data-table>      
 
     <sym-data-table
       class="sym-data-table"
@@ -239,6 +239,40 @@
       :current-page="5"      
       :sortable="true"
       :row-styler="styleRow" />
+
+      <blockquote>
+      A simple data table with grouping
+    </blockquote>
+
+    <sym-data-table
+      class="sym-data-table"
+      title="With grouping"
+      :multi-select="false"
+      :is-card="true"
+      :collapsible="true"
+      :collapsed="false"
+      :items="sortedItemsByGender"
+      :columns="columns"
+      no-data-message="All out!"
+      @collapse-toggle="collapseToggled"
+      :has-pagination="true"
+      :items-per-page="5"
+      :total-items="25"
+      :current-page="5"      
+      :sortable="true"
+      group-by="gender">
+      <div slot="detail" v-if="detailSelectedRows && detailSelectedRows.length > 0">
+        <form>
+          <div>
+            <label>First Name</label> <span>{{detailSelectedRows[0].first_name}}</span>
+          </div>
+
+          <div>
+            <label>Last Name</label> <span>{{detailSelectedRows[0].last_name}}</span>
+          </div>
+        </form>
+      </div>      
+    </sym-data-table>
   </div>
 
 </template>
@@ -447,6 +481,16 @@ export default {
         }
       ],
       isClear: false
+    }
+  },
+  computed: {
+    sortedItemsByGender: function () {
+      return this.items.sort((a, b) => {
+        if (a.gender === b.gender) {
+          return 0
+        }
+        return a.gender < b.gender ? -1 : 1
+      })
     }
   }
 }
