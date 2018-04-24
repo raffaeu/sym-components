@@ -95,7 +95,7 @@ Then you can start to use the declarative approach to create a new instance of i
 | **no-data-message**   | `String`   | `false`   | `No Data`   | The message to show if the table has no items   |
 | **sortable**   | `Boolean`   | `false`   | `false`   | Enable the sort option of the Data-Table   |
 | **group-by**   | `String`   | `false`   | ``   | Defines the property used group rows (table must be sorted by this property for grouping to work properly |
-| **group-header-formatted**   | `Function`   | `false`   | `Function returing the group by property`   | Function used to format group headers |
+| **group-header-formatter**   | `Function`   | `false`   | `Function returing the group by property`   | Function used to format group headers |
 
 ### Columns Configuration
 
