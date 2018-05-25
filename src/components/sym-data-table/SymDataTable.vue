@@ -357,7 +357,11 @@ export default {
 
       /* use custom format if defined */
       if (col.format) {
-        return col.format(val, item)
+        if (typeof col.format === 'string') {
+          return eval(col.format)
+        } else {
+          return col.format(val, item)
+        }
       }
 
       /* if col is currency */

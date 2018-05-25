@@ -427,12 +427,7 @@ export default {
           width: 80,
           label: 'Salary',
           hasTotal: true,
-          format: function (val) {
-            return new Intl
-              .NumberFormat('en-US', {
-                style: 'currency', currency: 'USD'
-              }).format(val)
-          }
+          format: "Intl.NumberFormat('en-US', {style: 'currency', currency: 'EUR'}).format(val)"
         },
         {
           name: 'ip_address',
