@@ -1,6 +1,6 @@
 {
   "name": "sym-components",
-  "version": "0.2.31",
+  "version": "0.2.32",
   "description": "Vue.js Components Library implementing Material Design",
   "author": "Raffaele Garofalo <raffaele.garofalo@symbioticsgroup.com>",
   "main": "lib/index.js",

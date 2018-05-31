@@ -106,7 +106,7 @@
 
       <!-- data content -->
       <tbody v-for="group in groups" :key="group.category">        
-        <tr v-if="group.header">
+        <tr class="group-header" v-if="group.header">
           <td class="sym-row-begin"></td>
           <td :colspan="columns.length">{{ group.header }}</td>
           <td class="end"></td>              

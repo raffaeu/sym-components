@@ -27,12 +27,12 @@
   user-select: none;
 }
 
-.sym-selectable>table>tbody>tr:hover {
+.sym-selectable>table>tbody>tr:hover:not(.group-header) {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.02);
 }
 
-.sym-selectable>table>tbody>tr:hover td:first-child {
+.sym-selectable>table>tbody>tr:hover td:first-child :not(.group-header) {
   border-left: 4px solid #FFA300;
 }
 
@@ -66,6 +66,10 @@
     width: 13px;
     min-width: 13px;
     max-width: 13px;
+}
+
+.group-header {
+  background-color: rgba(0, 0, 0, 0.12);
 }
 
 /*==============================================================

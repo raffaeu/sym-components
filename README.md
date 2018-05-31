@@ -79,3 +79,8 @@ npm publish
 ```
 
 > Use the `.npmignore` file to ignore all files that are not needed for the deployment version. 
+
+# to deploy
+npm run build
+(npm run prepublish)
+npm publish
