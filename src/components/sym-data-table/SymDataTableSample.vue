@@ -273,6 +273,35 @@
         </form>
       </div>      
     </sym-data-table>
+
+    <blockquote>
+      A simple data table with custom filter in header
+    </blockquote>
+    <sym-data-table
+      class="sym-data-table"
+      title="With custom fields in header"
+      :multi-select="false"
+      :is-card="true"
+      :collapsible="true"
+      :collapsed="false"
+      :items="items"
+      :columns="columns"
+      :actions="actions"
+      no-data-message="All out!"
+      @collapse-toggle="collapseToggled"
+      :has-pagination="true"
+      :items-per-page="5"
+      :total-items="25"
+      :current-page="5"      
+      :sortable="true"
+      >
+      <div slot="custom-filter">
+        <select>
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </select>
+      </div>      
+    </sym-data-table>
   </div>
 
 </template>

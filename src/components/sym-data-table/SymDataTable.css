@@ -167,7 +167,7 @@
     width: max-content
 }
 
-.sym-extra-commands {
+.sym-extra-commands, .sym-custom-filters {
   display: inline;
 }
 
