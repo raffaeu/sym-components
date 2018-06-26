@@ -157,6 +157,13 @@
   width: 100%
 }
 
+.sym-custom-filters {
+  display: table-cell;
+  padding-right: 16px;
+  height: 100%;  
+  width: max-content;
+}
+
 .sym-table-icons {
     float: right;
     padding-right: 16px;
@@ -167,7 +174,7 @@
     width: max-content
 }
 
-.sym-extra-commands, .sym-custom-filters {
+.sym-extra-commands {
   display: inline;
 }
 

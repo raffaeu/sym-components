@@ -15,14 +15,16 @@
           'sym-ripple': collapsible
         }" @click="toggleCollapse">{{ title }}</div>
 
+    <!-- Optional filters -->
+    <div class="sym-custom-filters">
+      <slot name="custom-filters"></slot>
+    </div>
+    
     <!-- Optional commands -->
     <div class="sym-table-icons">
 
       <!-- actions -->
-      <div name="table-commands" class="sym-table-commands">
-        <div class="sym-custom-filters">
-          <slot name="custom-filters"></slot>
-        </div>
+      <div name="table-commands" class="sym-table-commands">       
 
         <button v-for="(act, actIndex) in actions" :disabled="act.disabled" :key="actIndex" class="sym-icon-button" :class="{ 'sym-ripple': !act.disabled }"
           @click="actionTriggered(act)" :alt="act.tooltip" :title="act.tooltip">

@@ -295,7 +295,7 @@
       :current-page="5"      
       :sortable="true"
       >
-      <div slot="custom-filter">
+      <div slot="custom-filters">
         <select>
           <option value="1">1</option>
           <option value="2">2</option>
